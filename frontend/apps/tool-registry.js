@@ -4,7 +4,7 @@
 window.TAMP_APP_REGISTRY={
   'document-pdf-studio':{name:'Document & PDF Studio',entry:'/apps/document-pdf.html',status:'migrated'},
   'image-studio':{name:'Image Studio',entry:'/workspace.html?tool=image-studio',status:'legacy'},
-  'invoice-generator':{name:'Invoice Generator',entry:'/workspace.html?tool=invoice-generator',status:'legacy'},
+  'invoice-generator':{name:'Invoice Generator',entry:'/apps/invoice-generator.html',status:'active'},
   'proposal-builder':{name:'Proposal Builder',entry:'/apps/proposal-builder.html',status:'active'},
   'qr-code-generator':{name:'QR Code Generator',entry:'/workspace.html?tool=qr-code-generator',status:'legacy'},
   'resume-builder':{name:'Resume Builder',entry:'/apps/resume-builder.html',status:'active'},

@@ -11,6 +11,7 @@
     "start": "npm --prefix backend run start",
     "check": "npm --prefix backend run check",
     "check:foundation": "node backend/src/check-foundation.js",
+    "check:navigation": "node scripts/check-tool-navigation.mjs",
     "check:api": "npm --prefix backend run check:api",
     "test": "npm --prefix backend test",
     "worker": "npm --prefix backend run worker",

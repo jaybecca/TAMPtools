@@ -50,7 +50,7 @@
     const sidebar=document.getElementById('sidebar');
     document.getElementById('mobileMenu').onclick=()=>sidebar.classList.toggle('open');
     const signout=async()=>{try{await fetch('/api/auth/signout',{method:'POST',credentials:'include'})}finally{location.href='/index.html'}}; document.getElementById('menuSignout')?.addEventListener('click',signout); const avatar=document.getElementById('topAvatar'),menu=document.getElementById('avatarDropdown'); if(avatar&&menu) avatar.onclick=()=>{const open=menu.classList.toggle('open');avatar.setAttribute('aria-expanded',String(open))}; document.addEventListener('click',e=>{if(menu&&avatar&&!e.target.closest('.avatar-menu')){menu.classList.remove('open');avatar.setAttribute('aria-expanded','false')}});
-    document.querySelectorAll('[data-tool-link]').forEach(a=>a.addEventListener('click',()=>sidebar.classList.remove('open')));
+    document.querySelectorAll('[data-tool-link]').forEach(a=>{const app=window.TAMP_APP_REGISTRY?.[a.dataset.toolLink];if(app&&app.status!=='legacy'&&app.entry)a.href=app.entry;a.addEventListener('click',()=>sidebar.classList.remove('open'))});
     try{const r=await fetch('/api/auth/me',{credentials:'include',cache:'no-store'});if(r.status===401){location.href='/signin.html?next='+encodeURIComponent(location.pathname);return}const d=await r.json();const name=d.user.name||'there';document.getElementById('sideUserName').textContent=name;document.getElementById('sideUserEmail').textContent=d.user.email||'';document.getElementById('topAvatar').textContent=name.slice(0,2).toUpperCase();document.getElementById('avatarMenuName')?.replaceChildren(document.createTextNode(name));document.getElementById('avatarMenuEmail')?.replaceChildren(document.createTextNode(d.user.email||''))}catch{location.href='/signin.html?next='+encodeURIComponent(location.pathname)}
   }
   document.addEventListener('DOMContentLoaded',boot);
@@ -296,8 +296,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   ['Assistant','✦','TAMP Assistant','Ask, generate, analyze and connect workflows across TAMPtools.',['TAMP Assistant']]
  ];
  const toolLinks={
-  'Invoice Generator':'/apps/invoice-generator.html','Proposal Builder':'/apps/proposal-builder.html','QR Code Generator':'/workspace.html?tool=qr-code-generator','Resume Builder':'/workspace.html?tool=resume-builder','Cover Letter Builder':'/workspace.html?tool=cover-letter-builder','Content Studio':'/workspace.html?tool=content-studio','TAMP Assistant':'/workspace.html?tool=tamp-assistant','Image Studio':'/workspace.html?tool=image-studio','Document & PDF Studio':'/apps/document-pdf.html'
+  'Invoice Generator':'/apps/invoice-generator.html','Proposal Builder':'/apps/proposal-builder.html','QR Code Generator':'/workspace.html?tool=qr-code-generator','Resume Builder':'/apps/resume-builder.html','Cover Letter Builder':'/workspace.html?tool=cover-letter-builder','Content Studio':'/workspace.html?tool=content-studio','TAMP Assistant':'/workspace.html?tool=tamp-assistant','Image Studio':'/workspace.html?tool=image-studio','Document & PDF Studio':'/apps/document-pdf.html'
  };
+ const registryKeys={'Invoice Generator':'invoice-generator','Proposal Builder':'proposal-builder','QR Code Generator':'qr-code-generator','Resume Builder':'resume-builder','Cover Letter Builder':'cover-letter-builder','Content Studio':'content-studio','TAMP Assistant':'tamp-assistant','Image Studio':'image-studio','Document & PDF Studio':'document-pdf-studio'};
+ Object.entries(registryKeys).forEach(([name,key])=>{const entry=window.TAMP_APP_REGISTRY?.[key]?.entry;if(entry)toolLinks[name]=entry});
  window.TAMP_PHASE3_GROUPS=groups;
  window.TAMP_PHASE3_TOOL_LINKS=toolLinks;
  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
