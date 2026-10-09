@@ -1,0 +1,7247 @@
+# TAMPtools 22-language localization audit
+
+Generated: 2026-10-09T07:06:14.223Z
+
+- Expected locales: 22
+- Configured locales: 22
+- Canonical English keys: 468
+- Fully translated locales (excluding English): 0/21
+- Minimum estimated translation coverage: 1.92%
+
+Coverage is computed from locale-specific strings that differ from English. Identical strings are flagged for review because some may be legitimate shared terms. Runtime English fallback is not counted as a translation.
+
+| Locale | Coverage | Missing keys | Empty | Placeholder mismatches | Suspected English | Status |
+|---|---:|---:|---:|---:|---:|---|
+| en | 100% | 0 | 0 | 0 | 0 | PASS |
+| en_gb | 2.14% | 64 | 0 | 0 | 394 | FAIL |
+| zh | 82.69% | 67 | 0 | 0 | 14 | FAIL |
+| es | 81.62% | 67 | 0 | 0 | 19 | FAIL |
+| fr | 15.81% | 388 | 0 | 0 | 6 | FAIL |
+| de | 16.03% | 388 | 0 | 0 | 5 | FAIL |
+| pt | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| ru | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| id | 16.24% | 388 | 0 | 0 | 4 | FAIL |
+| tr | 16.24% | 388 | 0 | 0 | 4 | FAIL |
+| hi | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| bn | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| ar | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| ar_eg | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| ur | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| ja | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| mr | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| vi | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| te | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| ha | 16.24% | 388 | 0 | 0 | 4 | FAIL |
+| zu | 16.45% | 388 | 0 | 0 | 3 | FAIL |
+| pcm | 1.92% | 388 | 0 | 0 | 71 | FAIL |
+
+## Acceptance status
+
+This audit is diagnostic, not a claim of translation completion. A release should be blocked until each locale has full required-key coverage, placeholder checks pass, suspected English is reviewed, and native-speaker quality assurance is recorded.
+
+## Missing keys
+### en_gb
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+### zh
+- Choose Free
+- Most popular
+- / month
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+### es
+- Choose Free
+- Most popular
+- / month
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+### fr
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### de
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### pt
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### ru
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### id
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### tr
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### hi
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### bn
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### ar
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### ar_eg
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### ur
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### ja
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### mr
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### vi
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### te
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### ha
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### zu
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+### pcm
+- Loading…
+- Privacy
+- Blog
+- Terms
+- Data controls
+- Cookies
+- Email
+- Show
+- ACCOUNT
+- Effective date:
+- SECURITY
+- Change password
+- WhatsApp
+- Refresh
+- ACCOUNT SECURITY
+- ← Back to sign in
+- Reset password
+- New password
+- Confirm password
+- Manage billing
+- ← Back to TAMPtools
+- Continue with Google
+- Password
+- Forgot password?
+- Create an account
+- Name
+- Find mail
+- HELP CENTRE
+- How can we help?
+- Reach TAMPtools support by email or WhatsApp.
+- Email support
+- WhatsApp support
+- Open WhatsApp
+- Simple AI pricing:
+- Choose the capacity that matches your work.
+- PLAN COMPARISON
+- CREDIT TOP-UP
+- one-time
+- No subscription required
+- AI Credits wanted
+- ₦3 per credit
+- Use alongside any plan
+- Useful for extra AI and heavy processing
+- Pay once
+- Top up credits
+- Top up only when you need extra capacity.
+- FREE
+- Start without paying.
+- Built for teams.
+- CREDITS
+- Keep variable costs flexible.
+- READY WHEN YOU ARE
+- Start free. Upgrade when your work demands more.
+- No credit card is required to create your account.
+- TAMPTOOLS WORKSPACE
+- Your digital operations base.
+- See your work at a glance, then open a tool from the sidebar.
+- WORK COMPLETED
+- FILES PROCESSED
+- Stored and processed
+- AI WORK
+- Generations and assistant jobs
+- STORAGE
+- Current usage
+- Choose where to work.
+- Each area opens the functions you need without clutter.
+- RECENT WORK
+- SAVED WORK
+- NEXT STEP
+- Pick a function.
+- Working canvas
+- Fit
+- Undo
+- Drop files here or click to upload
+- Start from scratch, upload existing work, or use a template.
+- BEFORE
+- Original
+- AFTER
+- Your result appears here
+- View all
+- Blank canvas
+- Need a starting point?
+- Ask AI
+- FILES · ZIP · STORAGE
+- Storage used
+- Duplicates
+- Old files
+- File Browser
+- Storage Scan
+- Recovery
+- All types
+- Archives
+- Documents
+- Text/Data
+- New folder
+- Drop files here
+- Select all
+- Move selected
+- Safe delete
+- Run storage scan
+- Find old files
+- Storage intelligence
+- Processing…
+- Sync
+- Syncing…
+- Close
+- Optional
+- Priority
+- Port
+- Mailbox email
+- Mailbox folder
+- IMAP host e.g. imap.company.com
+- IMAP username
+- Password or app password
+- Search subject or message
+- Select at least one message.
+- Select messages first.
+- Select files first.
+- Backup failed.
+- Verification failed
+- Verification link missing
+- Email verified
+- Your name
+- Your password
+- Search tools
+- Search tools and functions
+- Search tools, templates, or content…
+- Search tools, work areas, templates…
+- Open menu
+- Zoom in
+- Zoom out
+- Save promotion
+- Create promotion
+- Max redemptions
+- From date
+- To date
+- Cost
+- Model
+- Provider e.g. gemini
+- API key
+- Secret key e.g. gemini_api_key
+- Secret value
+- Tell us what happened...
+- Please describe the payment issue.
+- Unable to load operations.
+- Unable to load security status.
+- Upload complete
+- Creating…
+- Creating account…
+- Signing in…
+- Name updated successfully.
+- Other sessions have been signed out.
+- No recurring AI credit charge
+- Customize
+- Personalize
+- Organization
+- Organize
+- Optimize
+- Color
+- Favorite
+- Center
+- Canceled
+- At least 8 characters
+- Repeat your password
+- Hide
+- or create with email
+- or continue with email
+- Create your account, then choose the plan that fits your work.
+- Welcome back. Choose how you want to continue.
+- Already have an account?
+- Don’t have an account?
+- Remember me
+- Passwords do not match.
+- New passwords do not match.
+- One workspace for the work that matters.
+- Your digital work, ready when you are.
+- Back to TAMPtools
+- MAIL WORKSPACE
+- Bring mail in, find what matters, review your choices, then act.
+- Manage mail
+- Connect mail
+- Write email
+- Protected archive
+- Messages
+- Loaded in this view
+- Selected
+- Ready for an action
+- Sources
+- Saved mail sources
+- Use a word, sender, date, or message status.
+- Sender email
+- Any attachment
+- With attachments
+- No attachments
+- Any status
+- Unread
+- Read
+- Smart Select
+- Clear
+- Review and act
+- Select messages first. Smart Select checks matching messages for you.
+- Select all shown
+- Mark read
+- Mark unread
+- Star
+- Flag
+- Archive
+- Move
+- Label
+- Delete
+- Save protected archive
+- Connect Gmail or Outlook
+- Use secure provider sign-in. TAMPtools never asks for your Gmail or Microsoft password.
+- Connect Gmail with Google
+- Connect Outlook / Microsoft 365
+- Import saved emails
+- An .eml file is a saved email message. This needs no mailbox API.
+- Choose .eml files
+- Import files
+- Connect another domain
+- For a normal business mailbox, use its IMAP server. You do not need a custom API.
+- What you need
+- Mailbox address, IMAP host, port, security, username and password/app password.
+- SSL / TLS
+- No SSL / STARTTLS
+- Test connection
+- Connect mailbox
+- Credentials are stored encrypted on the server. TAMPtools does not show the mailbox password back to the browser.
+- Connected sources
+- Sync Gmail, Microsoft or IMAP mailboxes whenever you need fresh mail.
+- Write an email
+- Choose the type, describe what you need, and generate a draft.
+- Professional email
+- Cold email
+- Follow-up
+- Sales email
+- Rewrite an email
+- What should the email say? Paste an email here if you want it rewritten.
+- Generate email
+- Open a protected archive
+- Use this only for an archive you are authorized to open.
+- Archive password
+- Open archive
+- one-time payment
+- AI generation, analysis and intensive workflows
+- Choose a small amount for occasional AI work.
+- Add more capacity whenever you need it.
+- Ideal for heavier AI-assisted workflows.
+- Choose Free
+- View plan
+- Most popular
+- MOST POPULAR
+- / month
+- Useful forever.
+- Flexible monthly billing
+- Files
+- GET STARTED
+- WELCOME BACK
+- ACCOUNT ACCESS
+- Create your TAMPtools account and bring practical digital work into one focused workspace.
+- Start with the 30-day all-access trial.
+- Keep the permanent Free plan after the trial.
+- Build, process, organize and write without app-hopping.
+- Sign in to access your tools, projects, usage and account settings.
+- One workspace for files, documents, images and business work.
+- Keep your projects, usage and account details together.
+- Use TAMP Assistant to connect tools into practical workflows.
+- SIMPLE, SCALABLE PRICING
+- Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.
+- PLAN METER
+- No annual discount
+- Move the meter above for a quick view, or compare the plans below.
+- Choose exactly how much extra AI capacity you need.
+- Move the credit meter to see the top-up amount instantly.
+- 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.
+- No forced upgrade
+- Use when needed
+- Works alongside your plan
+- Balance shown in your account
+- BUSINESS
+- Create your account →
+- WORK AREAS
+- View profile →
+- USAGE
+- PLAN
+- Use the sidebar groups to open individual tools, or use the search above.
+- Ask TAMP Assistant
+- batchEyebrow
+- batchTitle
+- batchIntro
+- backToDashboard
+- batchStepFiles
+- batchStepFilesSub
+- batchStepAction
+- batchStepActionSub
+- batchStepReview
+- batchStepReviewSub
+- batchStepRun
+- batchStepRunSub
+- batchAddFiles
+- batchDropHelp
+- batchDropTitle
+- batchDropOr
+- batchDropLimit
+- chooseFiles
+- clearFiles
+- noFiles
+- batchChooseAction
+- batchActionHelp
+- batchConvert
+- batchConvertSub
+- batchCompress
+- batchCompressSub
+- batchResize
+- batchResizeSub
+- batchRename
+- batchRenameSub
+- batchWatermark
+- batchWatermarkSub
+- batchOrganize
+- batchOrganizeSub
+- batchExtract
+- batchExtractSub
+- batchMerge
+- batchMergeSub
+- batchSplit
+- batchSplitSub
+- batchPackage
+- batchPackageSub
+- batchSettingLabel
+- batchSettingPlaceholder
+- batchSettingHelp
+- batchReviewTitle
+- batchReviewHelp
+- batchReviewEmpty
+- previewBatch
+- processBatch
+- batchResultsTitle
+- batchResultsHelp
+- download
+- batchSideTitle
+- batchSideText
+- batchWorksTitle
+- batchWorks1
+- batchWorks2
+- batchWorks3
+- batchWorks4
+- batchWorks5
+- batchLimitTitle
+- batchFilesWord
+- batchLimitText
+- What do you want to do?
+- Work with documents and PDFs in a clear, friendly workspace.
+- Choose a task
+- Create a document
+- Write and export a new PDF.
+- Merge PDFs
+- Join files into one PDF.
+- Split PDF
+- Take out the pages you need.
+- Compress PDF
+- Make a PDF easier to share.
+- PDF to images
+- Turn PDF pages into PNG or JPG images.
+- Images to PDF
+- Turn an image into a PDF.
+- Organize pages
+- Put pages in the order you want.
+- Read a scanned PDF
+- Turn scanned pages into text.
+- Extract text
+- Pull text from a document.
+- Compare documents
+- See differences between files.
+- or click to choose files
+- Your selected files will appear here.
+- Create your document
+- Write your content and export it when you are ready.
+- Create PDF
+- Choose two or more PDFs and combine them.
+- Choose the pages you want to extract.
+- Make the file smaller for easier sharing.
+- Turn PDF pages into images.
+- Choose a task to begin.
+- Working…
+- Done — your result is ready.
+- Start faster
+- Need a first draft?
+
+## Placeholder mismatches

@@ -1,0 +1,3 @@
+# Phase 70 — Content Studio
+
+Introduces a distinct brief-to-editor workspace in `frontend/workspace.js` with content-type-specific draft structures (blog, website, product, social, email, FAQ, report, script), audience/tone/length/keyword controls, three materially different structure choices, editable live document, word count, text and HTML exports, clipboard copy, basic editor formatting, local autosave/recent drafts, duplicate/delete/new actions, and responsive three-column writing desk. Uses a deterministic local drafting engine and clearly does not claim external AI generation. Draft persistence is browser-local, not cloud sync. Exported HTML and TXT reflect the current editor text.

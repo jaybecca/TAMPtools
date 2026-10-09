@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Batch Studio — TAMPtools</title>
+<link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body class="app-layout batch-studio-page">
+<main class="app-main"><div class="page-wrap batch-shell">
+  <section class="workspace-head batch-head">
+    <div><p class="eyebrow" data-i18n="batchEyebrow">BATCH STUDIO</p><h1 data-i18n="batchTitle">Batch Studio</h1><p class="muted" data-i18n="batchIntro">Do one job to many files. Add files, choose what to do, review it, then run.</p></div>
+    <div class="batch-head-actions"><a class="btn btn-ghost" href="/dashboard.html" data-i18n="backToDashboard">Dashboard</a></div>
+  </section>
+
+  <section class="batch-stepbar" aria-label="Batch workflow">
+    <div class="batch-step active"><span>1</span><div><b data-i18n="batchStepFiles">Add files</b><small data-i18n="batchStepFilesSub">Up to 500</small></div></div>
+    <div class="batch-line"></div>
+    <div class="batch-step"><span>2</span><div><b data-i18n="batchStepAction">Choose action</b><small data-i18n="batchStepActionSub">Simple settings</small></div></div>
+    <div class="batch-line"></div>
+    <div class="batch-step"><span>3</span><div><b data-i18n="batchStepReview">Review</b><small data-i18n="batchStepReviewSub">Check before run</small></div></div>
+    <div class="batch-line"></div>
+    <div class="batch-step"><span>4</span><div><b data-i18n="batchStepRun">Run</b><small data-i18n="batchStepRunSub">Download results</small></div></div>
+  </section>
+
+  <section class="batch-layout">
+    <div class="batch-main-col">
+      <section class="panel batch-card batch-upload-card">
+        <div class="batch-card-head"><div><span class="batch-number">01</span><div><h2 data-i18n="batchAddFiles">Add your files</h2><p data-i18n="batchDropHelp">Drop files here or choose them from your device.</p></div></div><span id="countBadge" class="batch-count">0 / 500</span></div>
+        <input id="files" type="file" multiple hidden>
+        <div id="drop" class="batch-drop"><div class="batch-drop-icon">＋</div><strong data-i18n="batchDropTitle">Drop files here</strong><span data-i18n="batchDropOr">or choose files</span><small data-i18n="batchDropLimit">Up to 500 files in one batch</small></div>
+        <div class="batch-file-tools"><button id="choose" class="btn btn-soft" type="button" data-i18n="chooseFiles">Choose files</button><button id="clear" class="btn btn-ghost" type="button" data-i18n="clearFiles">Clear</button><span id="queueHint" class="batch-hint" data-i18n="noFiles">No files added yet.</span></div>
+        <div id="queue" class="batch-file-list"></div>
+      </section>
+
+      <section class="panel batch-card">
+        <div class="batch-card-head"><div><span class="batch-number">02</span><div><h2 data-i18n="batchChooseAction">Choose what to do</h2><p data-i18n="batchActionHelp">Pick one operation. TAMPtools will apply it to the whole batch.</p></div></div></div>
+        <div class="batch-action-grid" id="actionGrid">
+          <button class="batch-action active" data-op="convert" type="button"><span>⇄</span><b data-i18n="batchConvert">Convert</b><small data-i18n="batchConvertSub">Change file format</small></button>
+          <button class="batch-action" data-op="compress" type="button"><span>◒</span><b data-i18n="batchCompress">Compress</b><small data-i18n="batchCompressSub">Make files smaller</small></button>
+          <button class="batch-action" data-op="resize" type="button"><span>↗</span><b data-i18n="batchResize">Resize</b><small data-i18n="batchResizeSub">Change image size</small></button>
+          <button class="batch-action" data-op="rename" type="button"><span>✎</span><b data-i18n="batchRename">Rename</b><small data-i18n="batchRenameSub">Apply a naming pattern</small></button>
+          <button class="batch-action" data-op="watermark" type="button"><span>◇</span><b data-i18n="batchWatermark">Watermark</b><small data-i18n="batchWatermarkSub">Add text to images</small></button>
+          <button class="batch-action" data-op="organize" type="button"><span>▦</span><b data-i18n="batchOrganize">Organize</b><small data-i18n="batchOrganizeSub">Put results in a folder</small></button>
+          <button class="batch-action" data-op="extract" type="button"><span>↙</span><b data-i18n="batchExtract">Extract</b><small data-i18n="batchExtractSub">Unpack ZIP files</small></button>
+          <button class="batch-action" data-op="merge" type="button"><span>⊕</span><b data-i18n="batchMerge">Merge</b><small data-i18n="batchMergeSub">Combine compatible files</small></button>
+          <button class="batch-action" data-op="split" type="button"><span>÷</span><b data-i18n="batchSplit">Split</b><small data-i18n="batchSplitSub">Break files into parts</small></button>
+          <button class="batch-action" data-op="package" type="button"><span>□</span><b data-i18n="batchPackage">Package</b><small data-i18n="batchPackageSub">Create one ZIP</small></button>
+        </div>
+        <div id="operationNote" class="batch-note"></div>
+        <div class="batch-setting"><label for="value" data-i18n="batchSettingLabel">Setting</label><input id="value" class="input" data-i18n-placeholder="batchSettingPlaceholder" placeholder="Example: jpg, 1600, or a name prefix"><small id="settingHelp" data-i18n="batchSettingHelp">Optional. Leave empty to use the recommended setting.</small></div>
+      </section>
+
+      <section class="panel batch-card">
+        <div class="batch-card-head"><div><span class="batch-number">03</span><div><h2 data-i18n="batchReviewTitle">Review your batch</h2><p data-i18n="batchReviewHelp">Check the files and action before processing.</p></div></div></div>
+        <div id="review" class="batch-review"></div>
+        <div id="msg" class="batch-status" role="status"></div>
+        <div class="batch-run-row"><button id="preview" class="btn btn-soft" type="button" data-i18n="previewBatch">Preview batch</button><button id="process" class="btn btn-primary" type="button" data-i18n="processBatch">Process batch</button></div>
+      </section>
+
+      <section id="resultCard" class="panel batch-card" hidden>
+        <div class="batch-card-head"><div><span class="batch-number">04</span><div><h2 data-i18n="batchResultsTitle">Your results</h2><p data-i18n="batchResultsHelp">Download each result or the package.</p></div></div></div>
+        <div id="result" class="batch-results"></div>
+      </section>
+    </div>
+
+    <aside class="batch-side-col">
+      <section class="batch-side-card batch-gradient-card"><span class="batch-side-icon">✦</span><b data-i18n="batchSideTitle">One clear workflow</b><p data-i18n="batchSideText">No complicated settings. Choose a job, review it, and run it.</p></section>
+      <section class="panel batch-side-card"><h3 data-i18n="batchWorksTitle">Works best for</h3><ul><li data-i18n="batchWorks1">Large image cleanups</li><li data-i18n="batchWorks2">Format conversions</li><li data-i18n="batchWorks3">File renaming</li><li data-i18n="batchWorks4">ZIP packaging</li><li data-i18n="batchWorks5">PDF and document workflows</li></ul></section>
+      <section class="panel batch-side-card"><h3 data-i18n="batchLimitTitle">Batch limit</h3><div class="batch-limit-number"><strong id="sideCount">0</strong><span data-i18n="batchFilesWord">files</span></div><div class="batch-progress"><span id="sideProgress"></span></div><small data-i18n="batchLimitText">Maximum 500 files per batch.</small></section>
+    </aside>
+  </section>
+</div></main>
+<script>
+(()=>{
+ const $=id=>document.getElementById(id); let files=[]; let operation='convert';
+ const labels={convert:'Convert',compress:'Compress',resize:'Resize',rename:'Rename',watermark:'Watermark',organize:'Organize',extract:'Extract',merge:'Merge',split:'Split',package:'Package'};
+ const notes={convert:'Images can be converted to another image format.',compress:'Images are compressed for smaller output.',resize:'Resize is available for image files.',rename:'Files are renamed with the value as a prefix.',watermark:'Adds a text watermark to image files.',organize:'Results are placed in a named folder.',extract:'Use ZIP files when extracting.',merge:'PDF files are merged into one PDF.',split:'Files are split into smaller parts.',package:'All selected files are packaged into one ZIP.'};
+ const settings={convert:'Example: jpg or webp',compress:'Recommended compression is automatic',resize:'Example: 1600',rename:'Example: product',watermark:'Example: TAMPtools',organize:'Example: invoices',extract:'No setting required',merge:'PDF files only',split:'Example: 5242880',package:'No setting required'};
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function fmt(n){if(n<1024)return n+' B'; if(n<1048576)return Math.round(n/1024)+' KB'; return (n/1048576).toFixed(1)+' MB';}
+ function render(){
+   $('countBadge').textContent=`${files.length} / 500`; $('sideCount').textContent=files.length; $('sideProgress').style.width=Math.min(100,files.length/5)+'%';
+   $('queueHint').textContent=files.length?`${files.length} file${files.length===1?'':'s'} ready.`:'No files added yet.';
+   $('queue').innerHTML=files.map((f,i)=>`<div class="batch-file-row"><span class="batch-file-index">${i+1}</span><div class="batch-file-name"><b>${esc(f.name)}</b><small>${fmt(f.size)} · ${esc(f.type||'file')}</small></div><button type="button" class="batch-remove" data-remove="${i}" aria-label="Remove">×</button></div>`).join('');
+   $('review').innerHTML=files.length?`<div class="batch-review-row"><span>Files</span><b>${files.length}</b></div><div class="batch-review-row"><span>Action</span><b>${labels[operation]}</b></div><div class="batch-review-row"><span>Setting</span><b>${esc($('value').value.trim()||'Recommended')}</b></div>`:`<div class="batch-empty" data-i18n="batchReviewEmpty">Add files to see your batch summary.</div>`;
+   document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{files.splice(Number(b.dataset.remove),1);render();});
+ }
+ function chooseOp(op){operation=op;document.querySelectorAll('.batch-action').forEach(b=>b.classList.toggle('active',b.dataset.op===op));$('operationNote').textContent=notes[op];$('value').placeholder=settings[op];$('settingHelp').textContent=op==='resize'?'Enter the target width in pixels.':op==='split'?'Enter chunk size in bytes.':'Optional. Leave empty to use the recommended setting.';render();}
+ $('choose').onclick=()=>$('files').click(); $('drop').onclick=()=>$('files').click(); $('files').onchange=()=>{files=[...$('files').files].slice(0,500);render();};
+ $('clear').onclick=()=>{files=[];$('files').value='';$('resultCard').hidden=true;render();}; $('value').oninput=render;
+ document.querySelectorAll('.batch-action').forEach(b=>b.onclick=()=>chooseOp(b.dataset.op));
+ ['dragenter','dragover'].forEach(e=>$('drop').addEventListener(e,x=>{x.preventDefault();$('drop').classList.add('dragging')})); ['dragleave','drop'].forEach(e=>$('drop').addEventListener(e,x=>{x.preventDefault();$('drop').classList.remove('dragging')}));
+ $('drop').addEventListener('drop',e=>{files=[...e.dataTransfer.files].slice(0,500);render();});
+ $('preview').onclick=()=>{if(!files.length){$('msg').textContent='Add files first.';return}$('msg').textContent=`Ready to ${labels[operation].toLowerCase()} ${files.length} file${files.length===1?'':'s'}.`;$('review').scrollIntoView({behavior:'smooth',block:'center'});};
+ $('process').onclick=async()=>{if(!files.length){$('msg').textContent='Add files first.';return} const btn=$('process');btn.disabled=true;$('msg').textContent='Processing…'; const fd=new FormData();files.forEach(f=>fd.append('files',f));fd.append('operation',operation);fd.append('value',$('value').value.trim()); try{const r=await fetch('/api/batch/process',{method:'POST',credentials:'include',body:fd});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||'Batch processing failed.');$('msg').textContent=`Batch complete — ${d.results?.length||0} result${(d.results?.length||0)===1?'':'s'}.`;$('resultCard').hidden=false;$('result').innerHTML=(d.results||[]).map(x=>`<div class="batch-result-row"><div><b>${esc(x.filename||'Result')}</b><small>${fmt(Number(x.sizeBytes||0))}</small></div>${x.downloadUrl?`<a class="btn btn-soft" href="${x.downloadUrl}" data-i18n="download">Download</a>`:''}</div>`).join('');$('resultCard').scrollIntoView({behavior:'smooth',block:'center'});}catch(e){$('msg').textContent=e.message}finally{btn.disabled=false}};
+ chooseOp('convert'); render();
+})();
+</script>
+</body></html>

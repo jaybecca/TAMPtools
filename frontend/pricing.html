@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="TAMPtools pricing — Free, Lite, Pro and Business plans plus TAMP AI Credits top-ups.">
+<title>Pricing — TAMPtools</title>
+<link rel="stylesheet" href="/styles.css">
+<script src="/app.js" defer></script><script src="/pricing.js" defer></script>
+</head>
+<body class="public-home pricing-page">
+<header class="public-nav public-nav-37">
+  <a class="brand" href="/index.html" aria-label="TAMPtools home"><img src="/logo.png" alt="TAMPtools"></a>
+  <nav class="public-links" aria-label="Main navigation"><a href="/index.html">Home</a><a href="/index.html#tools">Solutions</a><a class="active" href="/pricing.html">Pricing</a><a href="/index.html#how">How it works</a></nav>
+  <div class="nav-actions"><button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode">☾</button><a class="btn btn-ghost" href="/signin.html">Sign in</a><a class="btn btn-primary" href="/signup.html">Get started free</a></div>
+</header>
+<main>
+<section class="pricing-hero section">
+  <div class="section-head center"><p class="eyebrow">SIMPLE, SCALABLE PRICING</p><h1>Choose the capacity that matches your work.</h1><p>Every plan includes the TAMPtools workspace. Upgrade for more capacity, deeper workflows and team controls.</p></div>
+  
+</section>
+<section class="pricing-meter section">
+  <div class="meter-card panel">
+    <div class="meter-head"><div><p class="eyebrow">PLAN METER</p><h2 id="selectedPlan">Free</h2><p id="selectedSub" class="muted">Useful forever.</p></div><div class="meter-price"><strong id="selectedPrice">₦0</strong><span id="selectedPeriod">/ month</span><small id="selectedSavings">No annual discount</small></div></div>
+    <div class="meter-track-wrap"><div class="meter-track"><div id="meterFill" class="meter-fill"></div><div id="meterKnob" class="meter-knob"></div></div><input id="planSlider" class="plan-slider" type="range" min="0" max="3" step="1" value="0" aria-label="Choose plan"><div class="meter-steps"><button class="plan-step active" data-plan-index="0" type="button">Free</button><button class="plan-step" data-plan-index="1" type="button">Lite</button><button class="plan-step" data-plan-index="2" type="button">Pro</button><button class="plan-step" data-plan-index="3" type="button">Business</button></div></div>
+    <div class="meter-detail"><ul id="selectedBenefits"></ul><div class="meter-cta"><span id="planPosition">1 of 4</span><button id="planCta" class="btn btn-primary" type="button">Create free account</button></div></div>
+  </div>
+</section>
+<section class="section"><div class="section-head center"><p class="eyebrow">PLAN COMPARISON</p><h2>More benefits as your workload grows.</h2><p>Move the meter above for a quick view, or compare the plans below.</p></div><div id="plansGrid" class="standalone-plans-grid"></div></section>
+<section class="section ai-credit-meter-section" id="ai-credits">
+  <div class="section-head center"><p class="eyebrow">TAMP AI CREDITS</p><h2>Choose exactly how much extra AI capacity you need.</h2><p>Move the credit meter to see the top-up amount instantly.</p></div>
+  <div class="meter-card panel credit-meter-card">
+    <div class="meter-head"><div><p class="eyebrow">CREDIT TOP-UP</p><h2 id="creditAmount">100 Credits</h2><p id="creditDescription" class="muted">A small boost for occasional AI-heavy work.</p></div><div class="meter-price"><strong id="creditPrice">₦300</strong><span>one-time</span><small>No subscription required</small></div></div>
+    <div class="credit-meter-visual"><div class="meter-track-wrap"><div class="meter-track"><div id="creditMeterFill" class="meter-fill"></div><div id="creditMeterKnob" class="meter-knob"></div></div><input id="creditSlider" class="plan-slider" type="range" min="1" max="5000" step="1" value="100" aria-label="Choose AI credit amount"></div><div class="credit-quantity"><label for="creditAmountInput">AI Credits wanted</label><input id="creditAmountInput" class="input" type="number" min="1" max="100000" step="1" value="100" inputmode="numeric"><span>₦3 per credit</span></div></div>
+    <div class="meter-detail"><ul id="creditBenefits"><li>500 TAMP AI Credits</li><li>Use alongside any plan</li><li>Useful for extra AI and heavy processing</li></ul><div class="meter-cta"><span>Pay once</span><button id="creditCta" class="btn btn-primary" type="button">Top up credits</button></div></div>
+  </div>
+</section>
+<section class="section credits-section"><div class="credits-layout"><div><p class="eyebrow">TAMP AI CREDITS</p><h2>Top up only when you need extra capacity.</h2><p class="lead">TAMP AI Credits are pay-as-you-go top-ups for variable-cost work. Use them alongside any plan for AI generations and analysis, heavy processing, high-volume background removal, OCR, translation and other intensive workflows. Top-ups do not expire because you upgraded; they are simply extra capacity for when you need it.</p><p class="muted credit-rate-note"><strong>Simple AI pricing:</strong> 1 TAMP AI Credit = ₦3. Enter the exact number of credits you want and pay once.</p><div class="credit-benefits"><span>✓ No forced upgrade</span><span>✓ Use when needed</span><span>✓ Works alongside your plan</span><span>✓ Balance shown in your account</span></div></div><div class="credit-pack-grid"><article><strong>100</strong><span>₦300</span></article><article><strong>500</strong><span>₦1,500</span></article><article><strong>1,000</strong><span>₦3,000</span></article><article><strong>2,500</strong><span>₦7,500</span></article><article><strong>5,000</strong><span>₦15,000</span></article></div></div></section>
+<section class="section pricing-notes"><div class="notes-grid"><article class="panel"><p class="eyebrow">FREE</p><h3>Start without paying.</h3><p>Use the core TAMPtools workspace with practical monthly limits. Export your work and upgrade only when the limits become useful to outgrow.</p></article><article class="panel"><p class="eyebrow">BUSINESS</p><h3>Built for teams.</h3><p>Business adds shared workspace, team projects, permissions, central billing, analytics, shared templates, workflows and higher-volume capacity.</p></article><article class="panel"><p class="eyebrow">CREDITS</p><h3>Keep variable costs flexible.</h3><p>Credits let occasional heavy users pay for extra capacity without moving to a larger recurring plan.</p></article></div></section>
+<section class="conversion conversion-37"><div><p class="eyebrow" style="color:#fff">READY WHEN YOU ARE</p><h2>Start free. Upgrade when your work demands more.</h2><p>No credit card is required to create your account.</p></div><a class="btn" href="/signup.html">Create your account →</a></section>
+</main>
+<footer class="site-footer"><div class="footer-brand"><img src="/logo.png" alt="TAMPtools"></div><div class="footer-links"><a href="/index.html#tools">Solutions</a><a href="/pricing.html">Pricing</a><a href="/blog/index.html">Blog</a><a href="/support.html">Support</a><a href="/privacy-policy.html">Privacy</a><a href="/terms-and-conditions.html">Terms</a><a href="/data-controls.html">Data controls</a><a href="/cookie-policy.html">Cookies</a></div><p>© <span id="currentYear"></span> TAMPtools. Digital tools. Done.</p></footer>
+</body></html>

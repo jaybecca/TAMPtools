@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spreadsheet & Data Cleaner — TAMPtools</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<main class="workspace-page spreadsheet-cleaner-page">
+<header class="app-topbar workspace-topbar"><div class="topbar-left"><a class="app-topbar-brand" href="/dashboard.html"><img src="/logo.png" alt="TAMPtools"></a><a class="topbar-dashboard" href="/dashboard.html">Dashboard</a></div><div class="app-actions"><a class="topbar-action" href="/templates.html">Templates</a><a class="topbar-action" href="/pricing.html">Plans</a><a class="topbar-action" href="/index.html">Home</a></div></header>
+<div class="spreadsheet-shell">
+  <section class="spreadsheet-hero">
+    <div><span class="eyebrow">DATA • BUSINESS</span><h1>Spreadsheet &amp; Data Cleaner</h1><p>Turn messy spreadsheets into reliable, analysis-ready data—with a preview of what will change before you export.</p></div>
+    <div class="sheet-tier" id="tierCard"><b id="tierName">Loading plan…</b><span id="tierSummary">Checking your limits and advanced cleaning tools.</span></div>
+  </section>
+
+  <section class="sheet-step sheet-upload" id="upload">
+    <div class="sheet-step-head"><div><span class="step-number">1</span><div><h2>Import your spreadsheet</h2><p>CSV, TSV, XLS, XLSX or ODS. Your original file is never modified.</p></div></div><div class="sheet-format-badges"><span>CSV</span><span>XLSX</span><span>XLS</span><span>ODS</span></div></div>
+    <label class="sheet-drop" id="dropZone"><input id="file" type="file" accept=".csv,.tsv,.xls,.xlsx,.ods"><strong>Drop a spreadsheet here</strong><span>or click to browse • your file stays private to your TAMPtools workspace</span><em id="fileName">No file selected</em></label>
+    <div class="sheet-controls"><label>Worksheet<select id="sheet" disabled><option>Auto</option></select></label><button class="btn btn-primary" id="inspect" disabled>Preview impact</button><button class="btn btn-soft" id="reset" type="button">Reset</button></div>
+  </section>
+
+  <section class="sheet-step" id="previewSection" hidden>
+    <div class="sheet-step-head"><div><span class="step-number">2</span><div><h2>Review your data</h2><p>Inspect the first rows and see exactly what the cleaner detects before anything is changed.</p></div></div><div class="sheet-actions"><button class="btn btn-soft" id="aiSuggest" disabled>✦ AI cleanup suggestions <small>Pro+</small></button></div></div>
+    <div class="sheet-stats" id="stats"></div>
+    <div class="sheet-alerts" id="alerts"></div>
+    <div class="sheet-table-wrap"><table id="preview"><tbody><tr><td>Choose a spreadsheet to preview it here.</td></tr></tbody></table></div>
+  </section>
+
+  <section class="sheet-step" id="cleanSection" hidden>
+    <div class="sheet-step-head"><div><span class="step-number">3</span><div><h2>Choose your cleaning rules</h2><p>Defaults are conservative. Turn on only the transformations you want.</p></div></div></div>
+    <div class="cleaner-layout">
+      <div class="cleaner-options">
+        <div class="preset-row"><button class="preset active" data-preset="standard">Standard</button><button class="preset" data-preset="conservative">Conservative</button><button class="preset" data-preset="aggressive">Aggressive</button></div>
+        <label class="clean-option"><input id="emptyRows" type="checkbox" checked><span><b>Remove empty rows</b><small>Remove rows that contain no usable data.</small></span></label>
+        <label class="clean-option"><input id="dupes" type="checkbox" checked><span><b>Remove exact duplicates</b><small>Keep the first copy and remove repeated rows.</small></span></label>
+        <label class="clean-option locked" id="smartOption"><input id="smartDedupe" type="checkbox"><span><b>Smart near-duplicates <mark>Pro+</mark></b><small>Find likely duplicates despite small spelling/order differences.</small></span></label>
+        <label class="clean-option"><input id="whitespace" type="checkbox" checked><span><b>Clean whitespace &amp; invisible characters</b><small>Fix pasted spaces, tabs, NBSP and hidden characters.</small></span></label>
+        <label class="clean-option"><input id="normalize" type="checkbox" checked><span><b>Normalize common data</b><small>Names, emails, phone numbers, countries, dates and numbers where safely detected.</small></span></label>
+        <label class="clean-option"><input id="errors" type="checkbox" checked disabled><span><b>Find errors &amp; risky cells</b><small>Flags spreadsheet errors, invalid emails, dates and other suspicious values.</small></span></label>
+        <label class="clean-option locked" id="auditOption"><input id="audit" type="checkbox"><span><b>Audit &amp; diff workbook <mark>Lite+</mark></b><small>Get a change log and removed-row report alongside your cleaned file.</small></span></label>
+      </div>
+      <aside class="cleaner-side"><h3>Cleaning preview</h3><div id="impact" class="impact-list"><p>Run Preview impact to estimate changes.</p></div><div class="export-choice"><b>Export format</b><label><input type="radio" name="format" value="xlsx" checked> Excel XLSX</label><label><input type="radio" name="format" value="csv"> CSV</label></div><button class="btn btn-primary btn-wide" id="clean" disabled>Clean &amp; Export</button><p class="tiny">Cleaning creates a new file. Your source remains untouched.</p></aside>
+    </div>
+  </section>
+
+  <section class="sheet-result" id="result" hidden><div><span class="result-icon">✓</span><div><h2>Cleaned spreadsheet ready</h2><p id="resultSummary"></p></div></div><div class="result-actions"><a class="btn btn-primary" id="download" href="#">Download cleaned file</a><a class="btn btn-soft" id="auditDownload" href="#" hidden>Download audit &amp; diff</a><button class="btn btn-soft" id="cleanAnother">Clean another</button></div></section>
+  <div id="status" class="form-message"></div>
+</div>
+</main>
+<script src="/spreadsheet-studio.js"></script>
+</body></html>

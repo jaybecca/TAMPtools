@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Templates — TAMPtools</title><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script></head><body class="app-layout"><main class="app-main"><div class="page-wrap"><section class="workspace-hero-card"><div class="workspace-title-block"><div class="workspace-icon">▤</div><div><p class="eyebrow">TAMPTOOLS LIBRARY</p><h1>Templates</h1><p>Start faster with polished templates for invoices, proposals, QR codes, careers, content and documents.</p></div></div><div class="workspace-hero-actions"><a class="btn btn-soft" href="/dashboard.html">Dashboard</a></div></section>
+<section class="templates-toolbar"><div><strong>Template library</strong><span id="templateCount" class="muted"></span></div><div class="template-filters" id="templateFilters"><button class="template-filter active" data-filter="all">All</button><button class="template-filter" data-filter="business">Business</button><button class="template-filter" data-filter="career">Career</button><button class="template-filter" data-filter="content">Content</button><button class="template-filter" data-filter="design">Design</button></div></section>
+<section class="template-library" id="templateLibrary"></section></div></main><script>
+(()=>{const templates=[
+['business','Invoice','Professional invoice','invoice-generator','classic','Invoice','Clean invoice with taxes, discounts and payment terms.'],
+['business','Invoice','Modern invoice','invoice-generator','modern','Invoice','Bold branded billing layout.'],
+['business','Proposal','Professional proposal','proposal-builder','professional','Proposal','Structured client proposal for services and projects.'],
+['business','Proposal','Modern proposal','proposal-builder','modern','Proposal','Strong visual hierarchy for agencies and consultants.'],
+['business','Proposal','Minimal proposal','proposal-builder','minimal','Proposal','Premium editorial proposal with restrained styling.'],
+['business','Proposal','Creative proposal','proposal-builder','creative','Proposal','Expressive proposal for creative and marketing work.'],
+['business','QR Code','URL / website QR','qr-code-generator','url','QR Code','Simple QR for websites, landing pages and links.'],
+['business','QR Code','Text QR','qr-code-generator','text','QR Code','Share text instantly.'],
+['business','QR Code','Email QR','qr-code-generator','email','QR Code','Open a pre-filled email.'],
+['business','QR Code','Wi-Fi QR','qr-code-generator','wifi','QR Code','Connect guests to Wi-Fi.'],
+['business','QR Code','Contact / vCard','qr-code-generator','vcard','QR Code','Share a digital contact card.'],
+['business','QR Code','Business QR','qr-code-generator','business','QR Code','Share a business landing page.'],
+['business','QR Code','Dynamic QR','qr-code-generator','url','QR Code','Editable campaign QR with tracking on Pro+.'],
+['career','Resume','Modern resume','resume-builder','modern','Resume','Professional career layout with clear hierarchy.'],
+['career','Resume','Executive resume','resume-builder','executive','Resume','Leadership-focused resume structure.'],
+['career','Cover Letter','Professional cover letter','cover-letter-builder','professional','Cover Letter','ATS-friendly application letter with clear business structure.'],
+['career','Cover Letter','Classic cover letter','cover-letter-builder','classic','Cover Letter','Traditional format for conservative industries.'],
+['career','Cover Letter','Minimal cover letter','cover-letter-builder','minimal','Cover Letter','Clean, understated one-page application letter.'],
+['career','Cover Letter','Modern cover letter','cover-letter-builder','modern','Cover Letter','Contemporary layout with stronger visual hierarchy.'],
+['career','Cover Letter','Elegant cover letter','cover-letter-builder','elegant','Cover Letter','Polished editorial style for premium applications.'],
+['career','Cover Letter','Executive cover letter','cover-letter-builder','executive','Cover Letter','Leadership-oriented application letter.'],
+['career','Cover Letter','Creative cover letter','cover-letter-builder','creative','Cover Letter','Expressive option for creative and marketing roles.'],
+['career','Cover Letter','Compact cover letter','cover-letter-builder','compact','Cover Letter','Space-efficient layout for concise applications.'],
+['career','Profile','Professional bio','career-profile-writer','bio','Profile','Short professional profile for applications and websites.'],
+['content','Content','Blog article','content-studio','blog','Content','Article structure with headline, sections and CTA.'],
+['content','Content','Product description','content-studio','product','Content','Conversion-focused product copy structure.'],
+['design','Image','Product image','image-studio','product','Image','Clean product presentation workflow.'],
+['design','Document','Professional PDF','document-pdf-studio','professional','Document','Start a polished business document.']
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const link=t=>{if(t[3]==='document-pdf-studio')return `/apps/document-pdf.html?template=${encodeURIComponent(t[4])}`;return `/workspace.html?tool=${t[3]}&template=${encodeURIComponent(t[4])}`};
+function render(filter='all'){const rows=templates.filter(t=>filter==='all'||t[0]===filter);document.getElementById('templateCount').textContent=` · ${rows.length} templates`;document.getElementById('templateLibrary').innerHTML=rows.map(t=>`<article class="template-library-card"><a href="${link(t)}" class="template-visual template-${esc(t[4])}"><span>${esc(t[5][0])}</span><small>${esc(t[1])}</small></a><div class="template-card-copy"><span class="template-category">${esc(t[0])}</span><h3>${esc(t[2])}</h3><p>${esc(t[6])}</p><a class="btn btn-soft" href="${link(t)}">Use template</a></div></article>`).join('')}
+document.querySelectorAll('.template-filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.template-filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter)});const initial=new URLSearchParams(location.search).get('type');if(initial){const f=[...document.querySelectorAll('.template-filter')].find(x=>x.dataset.filter===initial);if(f){f.click();return}}render()})();
+</script></body></html>

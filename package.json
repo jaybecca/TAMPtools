@@ -1,0 +1,39 @@
+{
+  "name": "tamptools",
+  "version": "1.0.0-foundation-1b",
+  "private": true,
+  "description": "TAMPtools integrated full-stack foundation",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "dev": "npm --prefix backend run dev",
+    "start": "npm --prefix backend run start",
+    "check": "npm --prefix backend run check",
+    "check:foundation": "node backend/src/check-foundation.js",
+    "check:api": "npm --prefix backend run check:api",
+    "test": "npm --prefix backend test",
+    "worker": "npm --prefix backend run worker",
+    "postinstall": "node -e \"console.log('TAMPtools dependencies ready')\"",
+    "i18n:check": "node scripts/i18n-check.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "zod": "^4.0.0",
+    "multer": "^2.0.2",
+    "sharp": "^0.34.5",
+    "@imgly/background-removal-node": "^1.4.5",
+    "pdfjs-dist": "^5.6.205",
+    "pg": "^8.16.3",
+    "bullmq": "^5.63.0",
+    "ioredis": "^5.7.0",
+    "@aws-sdk/client-s3": "^3.899.0",
+    "imapflow": "^1.0.186",
+    "mailparser": "^3.7.4",
+    "qrcode": "^1.5.4"
+  }
+}
