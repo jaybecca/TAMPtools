@@ -7,6 +7,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import crypto from "node:crypto";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
@@ -62,6 +63,32 @@ app.disable("x-powered-by");
 app.use((req,res,next)=>{const id=req.get('x-request-id')||crypto.randomUUID();req.requestId=id;res.setHeader('X-Request-Id',id);next();});
 app.use(helmet({ contentSecurityPolicy: false, referrerPolicy: { policy: 'strict-origin-when-cross-origin' }, hsts: isProduction ? undefined : false }));
 const allowedOrigins = new Set((process.env.FRONTEND_ORIGINS || process.env.FRONTEND_ORIGIN || `http://localhost:${PORT},http://127.0.0.1:${PORT}`).split(",").map(x => x.trim()).filter(Boolean));
+
+if (isProduction) {
+  const requireHttpsOrigin = (name, value) => {
+    const raw = String(value || '').trim();
+    if (!raw) throw new Error(`Production configuration requires ${name}.`);
+    let url;
+    try { url = new URL(raw); } catch {
+      throw new Error(`${name} must be a valid HTTPS origin.`);
+    }
+    if (url.protocol !== 'https:' || !url.hostname || url.username || url.password ||
+        url.pathname !== '/' || url.search || url.hash) {
+      throw new Error(`${name} must be an HTTPS origin without a path, credentials, query, or fragment.`);
+    }
+  };
+
+  requireHttpsOrigin('APP_BASE_URL', process.env.APP_BASE_URL);
+  requireHttpsOrigin('PUBLIC_APP_URL', process.env.PUBLIC_APP_URL);
+
+  const configuredOrigins = process.env.FRONTEND_ORIGINS || process.env.FRONTEND_ORIGIN;
+  if (!configuredOrigins || !configuredOrigins.trim()) {
+    throw new Error('Production configuration requires FRONTEND_ORIGIN or FRONTEND_ORIGINS.');
+  }
+  for (const origin of configuredOrigins.split(',').map(value => value.trim()).filter(Boolean)) {
+    requireHttpsOrigin('FRONTEND_ORIGIN entry', origin);
+  }
+}
 app.use(cors({
   origin(origin, callback) {
     if (!origin || allowedOrigins.has(origin)) return callback(null, true);
@@ -435,6 +462,241 @@ app.post("/api/tools/pdf-compressor", requireSameOrigin, requireAuth, async (req
   });
 });
 
+
+// Microsoft account sign-in. Kept separate from Microsoft Mail OAuth.
+const microsoftConfigured = () =>
+  Boolean(process.env.MICROSOFT_CLIENT_ID && process.env.MICROSOFT_CLIENT_SECRET);
+
+const microsoftTenant = () => process.env.MICROSOFT_TENANT_ID || "common";
+const microsoftRedirectUri = req =>
+  `${process.env.APP_BASE_URL || `${req.protocol}://${req.get("host")}`}/api/auth/microsoft/callback`;
+
+const microsoftStateCookie = "tamptools_microsoft_oauth_state";
+const microsoftJwks = createRemoteJWKSet(
+  new URL("https://login.microsoftonline.com/common/discovery/v2.0/keys")
+);
+
+const clearMicrosoftStateCookie = res =>
+  res.appendHeader(
+    "Set-Cookie",
+    `${microsoftStateCookie}=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${isProduction ? "; Secure" : ""}`
+  );
+
+app.get("/api/auth/microsoft/status", (req, res) => {
+  res.json({
+    configured: microsoftConfigured(),
+    provider: "microsoft",
+    message: microsoftConfigured()
+      ? "Microsoft sign-in is ready."
+      : "Microsoft sign-in needs MICROSOFT_CLIENT_ID and MICROSOFT_CLIENT_SECRET."
+  });
+});
+
+app.get("/api/auth/microsoft", (req, res) => {
+  if (!microsoftConfigured()) {
+    return res.status(503).send("Microsoft Sign-In is not configured.");
+  }
+
+  const state = crypto.randomBytes(32).toString("base64url");
+  const nonce = crypto.randomBytes(32).toString("base64url");
+  const verifier = crypto.randomBytes(48).toString("base64url");
+  const challenge = crypto.createHash("sha256").update(verifier).digest("base64url");
+
+  // Store state, nonce and PKCE verifier in a short-lived, HttpOnly cookie.
+  const payload = Buffer.from(JSON.stringify({ state, nonce, verifier })).toString("base64url");
+  res.setHeader(
+    "Set-Cookie",
+    `${microsoftStateCookie}=${payload}; Path=/; Max-Age=600; HttpOnly; SameSite=Lax${isProduction ? "; Secure" : ""}`
+  );
+
+  const url = new URL(
+    `https://login.microsoftonline.com/${encodeURIComponent(microsoftTenant())}/oauth2/v2.0/authorize`
+  );
+  url.searchParams.set("client_id", process.env.MICROSOFT_CLIENT_ID);
+  url.searchParams.set("redirect_uri", microsoftRedirectUri(req));
+  url.searchParams.set("response_type", "code");
+  url.searchParams.set("response_mode", "query");
+  url.searchParams.set("scope", "openid profile email User.Read");
+  url.searchParams.set("state", state);
+  url.searchParams.set("nonce", nonce);
+  url.searchParams.set("code_challenge", challenge);
+  url.searchParams.set("code_challenge_method", "S256");
+
+  res.redirect(url.toString());
+});
+
+app.get("/api/auth/microsoft/callback", async (req, res) => {
+  try {
+    if (!microsoftConfigured()) {
+      return res.status(503).send("Microsoft Sign-In is not configured.");
+    }
+
+    const { code, state, error } = req.query || {};
+    const cookieValue = getCookie(req, microsoftStateCookie);
+    clearMicrosoftStateCookie(res);
+
+    if (error) return res.redirect("/signin.html?oauth=cancelled");
+    if (typeof code !== "string" || typeof state !== "string" || !cookieValue) {
+      return res.status(400).send("Invalid Microsoft OAuth state.");
+    }
+
+    let saved;
+    try {
+      saved = JSON.parse(Buffer.from(cookieValue, "base64url").toString("utf8"));
+    } catch {
+      return res.status(400).send("Invalid Microsoft OAuth state.");
+    }
+
+    if (
+      typeof saved.state !== "string" ||
+      Buffer.byteLength(state) !== Buffer.byteLength(saved.state) ||
+      !crypto.timingSafeEqual(Buffer.from(state), Buffer.from(saved.state))
+    ) {
+      return res.status(400).send("Invalid Microsoft OAuth state.");
+    }
+
+    const tokenUrl =
+      `https://login.microsoftonline.com/${encodeURIComponent(microsoftTenant())}/oauth2/v2.0/token`;
+
+    const tokenResponse = await fetch(tokenUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id: process.env.MICROSOFT_CLIENT_ID,
+        client_secret: process.env.MICROSOFT_CLIENT_SECRET,
+        redirect_uri: microsoftRedirectUri(req),
+        grant_type: "authorization_code",
+        code,
+        code_verifier: saved.verifier,
+        scope: "openid profile email User.Read"
+      })
+    });
+
+    const tokens = await tokenResponse.json().catch(() => ({}));
+    if (!tokenResponse.ok || !tokens.id_token || !tokens.access_token) {
+      throw new Error("Microsoft token exchange failed.");
+    }
+
+    // Verify signature, audience, expiry and nonce before trusting identity claims.
+    const verified = await jwtVerify(tokens.id_token, microsoftJwks, {
+      audience: process.env.MICROSOFT_CLIENT_ID,
+      algorithms: ["RS256"]
+    });
+
+    const claims = verified.payload;
+    const tenantId = String(claims.tid || "");
+    const expectedIssuer = `https://login.microsoftonline.com/${tenantId}/v2.0`;
+
+    if (
+      !claims.sub ||
+      !tenantId ||
+      claims.iss !== expectedIssuer ||
+      claims.nonce !== saved.nonce
+    ) {
+      throw new Error("Microsoft identity validation failed.");
+    }
+
+    const configuredTenant = microsoftTenant().toLowerCase();
+    if (
+      !["common", "organizations", "consumers"].includes(configuredTenant) &&
+      configuredTenant !== tenantId.toLowerCase()
+    ) {
+      throw new Error("Microsoft account belongs to an unapproved tenant.");
+    }
+
+    // Microsoft email claims are not always present. Use Microsoft Graph as a
+    // fallback for the profile, while keeping the verified token subject as ID.
+    const graphResponse = await fetch(
+      "https://graph.microsoft.com/v1.0/me?$select=id,displayName,mail,userPrincipalName",
+      { headers: { Authorization: `Bearer ${tokens.access_token}`, Accept: "application/json" } }
+    );
+    const profile = await graphResponse.json().catch(() => ({}));
+    if (!graphResponse.ok || !profile.id) {
+      throw new Error("Could not retrieve the Microsoft account profile.");
+    }
+
+    const rawEmail = claims.email || profile.mail || profile.userPrincipalName;
+    const email = String(rawEmail || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new Error("Microsoft did not provide a usable email address.");
+    }
+
+    const subject = String(claims.sub);
+    const identity = await db.prepare(
+      "SELECT user_id AS userId FROM oauth_identities WHERE provider='microsoft' AND subject=?"
+    ).get(subject);
+
+    let user = identity
+      ? await db.prepare(
+          "SELECT id,name,email,plan,trial_ends_at AS trialEndsAt FROM users WHERE id=?"
+        ).get(identity.userId)
+      : null;
+
+    if (identity && !user) {
+      throw new Error("The linked Microsoft account has no matching TAMPtools user.");
+    }
+
+    if (!identity) {
+      const existing = await db.prepare(
+        "SELECT id FROM users WHERE lower(email)=?"
+      ).get(email);
+
+      // Do not silently link a Microsoft identity to an existing account based
+      // only on an email address. Account linking needs an authenticated flow.
+      if (existing) {
+        return res.redirect("/signin.html?oauth=microsoft_account_exists");
+      }
+
+      const locale = await resolveLocale(req);
+      const now = new Date().toISOString().replace("T", " ").replace("Z", "");
+      const trialEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+        .toISOString().replace("T", " ").replace("Z", "");
+      const passwordHash = hashPassword(crypto.randomBytes(48).toString("base64url"));
+      const emailVerified = claims.email_verified === true || claims.email_verified === "true";
+
+      const result = await db.prepare(
+        "INSERT INTO users (name,email,password_hash,auth_provider,auth_subject,plan,trial_started_at,trial_ends_at,language,currency,country_code,email_verified_at) VALUES (?,?,?,?,?,'Free',?,?,?,?,?,?)"
+      ).run(
+        String(claims.name || profile.displayName || email.split("@")[0]).slice(0, 200),
+        email,
+        passwordHash,
+        "microsoft",
+        subject,
+        now,
+        trialEnd,
+        locale.language,
+        locale.currency,
+        locale.country,
+        emailVerified ? now : null
+      );
+
+      user = await db.prepare(
+        "SELECT id,name,email,plan,trial_ends_at AS trialEndsAt FROM users WHERE id=?"
+      ).get(Number(result.lastInsertRowid));
+
+      await db.prepare(
+        "INSERT INTO oauth_identities (user_id,provider,subject,email) VALUES (?, 'microsoft', ?, ?)"
+      ).run(user.id, subject, email);
+    }
+
+    const sessionToken = crypto.randomBytes(32).toString("base64url");
+    const expires = new Date(Date.now() + sessionMaxAgeMs)
+      .toISOString().replace("T", " ").replace("Z", "");
+
+    await db.prepare(
+      "INSERT INTO sessions (token_hash,user_id,expires_at) VALUES (?,?,?)"
+    ).run(hashToken(sessionToken), user.id, expires);
+
+    setSessionCookie(res, sessionToken);
+    await audit(user.id, "auth.microsoft_signin", {}, req);
+    return res.redirect("/dashboard.html");
+  } catch (error) {
+    console.error("Microsoft Sign-In error:", error);
+    return res.redirect("/signin.html?oauth=microsoft_error");
+  }
+});
+
+
 app.get('/api/auth/google', (req,res) => {
   if (!googleConfigured()) return res.status(503).send('Google Sign-In is not configured.');
   const state = crypto.randomBytes(32).toString('base64url');
@@ -783,8 +1045,8 @@ app.post('/api/mail/imap/test',requireSameOrigin,requireAuth,async (req,res)=>{t
 app.post('/api/mail/imap/connect',requireSameOrigin,requireAuth,async (req,res)=>{try{const parsed=mailImapSchema.safeParse(req.body||{});if(!parsed.success)return res.status(400).json({error:'Complete the IMAP fields before connecting.',fields:parsed.error.flatten().fieldErrors});const d=parsed.data;const test=await openImapConnection(d);await test.logout().catch(()=>{});const r=await db.prepare('INSERT OR IGNORE INTO mail_connections(user_id,provider,account_email,status,settings_json) VALUES(?,?,?,?,?)').run(req.user.id,`imap:${d.host}`,d.accountEmail,'connected',JSON.stringify({host:d.host,port:d.port,secure:d.secure,username:d.username,folder:d.folder}));const id=Number(r.lastInsertRowid)||Number((await db.prepare('SELECT id FROM mail_connections WHERE user_id=? AND provider=? AND account_email=?').get(req.user.id,`imap:${d.host}`,d.accountEmail)).id);await integrationSecretUpsert({key:await mailImapSecretKey(req.user.id,id),provider:'mail-imap',value:JSON.stringify({host:d.host,port:d.port,secure:d.secure,username:d.username,password:d.password,folder:d.folder}),metadata:{userId:req.user.id,connectionId:id}});res.status(201).json({ok:true,connection:{id,provider:`imap:${d.host}`,accountEmail:d.accountEmail,status:'connected'}});}catch(e){console.error('IMAP connect error:',e);res.status(400).json({error:e.message||'Unable to connect this mailbox.'});}});
 app.post('/api/mail/connections/:id/sync',requireSameOrigin,requireAuth,async(req,res)=>{try{const id=Number(req.params.id);const row=await db.prepare('SELECT * FROM mail_connections WHERE id=? AND user_id=?').get(id,req.user.id);if(!row)return res.status(404).json({error:'Mail connection not found.'});let result;if(row.provider==='google')result=await syncGoogleMailbox(req.user.id,id);else if(row.provider==='microsoft')result=await syncMicrosoftMailbox(req.user.id,id);else {const raw=await integrationSecretGet(await mailImapSecretKey(req.user.id,id));if(!raw)throw new Error('Mail credentials are not available. Reconnect this mailbox.');result=await syncImapMailbox(req.user.id,id,JSON.parse(raw));} await db.prepare('UPDATE mail_connections SET status=?,updated_at=CURRENT_TIMESTAMP,settings_json=? WHERE id=? AND user_id=?').run('connected',JSON.stringify({...JSON.parse(row.settings_json||'{}'),folders:result.folders||[],lastSyncAt:new Date().toISOString()}),id,req.user.id);res.json({ok:true,...result});}catch(e){console.error('Mail sync error:',e);const id=Number(req.params.id);await db.prepare('UPDATE mail_connections SET status=? WHERE id=? AND user_id=?').run('error',id,req.user.id);res.status(400).json({error:e.message||'Unable to sync this mailbox.'});}});
 app.delete('/api/mail/connections/:id',requireSameOrigin,requireAuth,async(req,res)=>{const id=Number(req.params.id);const row=await db.prepare('SELECT id,provider FROM mail_connections WHERE id=? AND user_id=?').get(id,req.user.id);if(!row)return res.status(404).json({error:'Mail connection not found.'});if(row.provider==='google'){try{const tok=await mailTokenRecord(req.user.id,id);if(tok.access_token)await fetch('https://oauth2.googleapis.com/revoke?token='+encodeURIComponent(tok.access_token),{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'}});}catch{}}await db.prepare('DELETE FROM integration_secrets WHERE secret_key=?').run(secretKeySafe(mailSecretKey(req.user.id,id)));if(String(row.provider).startsWith('imap:'))await db.prepare('DELETE FROM integration_secrets WHERE secret_key=?').run(secretKeySafe(await mailImapSecretKey(req.user.id,id)));await db.prepare('DELETE FROM mail_connections WHERE id=? AND user_id=?').run(id,req.user.id);res.json({ok:true});});
-const mailUpload=multer({storage:multer.memoryStorage(),limits:{files:500,fileSize:25*1024*1024}});
-app.post('/api/mail/import',requireSameOrigin,requireAuth,mailUpload.array('files',500),async (req,res)=>{const d=mailImportSchema.parse({provider:req.body?.provider,accountEmail:req.body?.accountEmail,folder:req.body?.folder});let conn=await db.prepare('SELECT id FROM mail_connections WHERE user_id=? AND provider=? AND account_email IS ?').get(req.user.id,d.provider,d.accountEmail||null);if(!conn){const r=await db.prepare('INSERT INTO mail_connections(user_id,provider,account_email,status) VALUES(?,?,?,?)').run(req.user.id,d.provider,d.accountEmail||null,'import');conn={id:Number(r.lastInsertRowid)};}let imported=0,duplicates=0;for(const f of req.files||[]){if(!/\.eml$/i.test(f.originalname) && !/message\/rfc822/i.test(f.mimetype||''))continue;const m=parseMailText(f.buffer.toString('utf8'));const h=mailHash(m);if(await db.prepare('SELECT id FROM mail_messages WHERE user_id=? AND content_hash=?').get(req.user.id,h)){duplicates++;continue;}await db.prepare(`INSERT INTO mail_messages(user_id,connection_id,message_uid,sender_name,sender_email,subject,body_text,sent_at,has_attachments,attachment_names_json,folder_name,content_hash) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`).run(req.user.id,conn.id,m.messageUid,m.senderName,m.senderEmail,m.subject,m.bodyText,m.sentAt||null,m.hasAttachments,JSON.stringify(m.attachmentNames),d.folder,h);imported++;}await audit(req.user.id,'mail.imported',{imported,duplicates},req);res.json({ok:true,imported,duplicates});});
+const mailUpload=multer({storage:multer.memoryStorage(),limits:{files:10,fileSize:25*1024*1024}});
+app.post('/api/mail/import',requireSameOrigin,requireAuth,mailUpload.array('files',10),async (req,res)=>{const d=mailImportSchema.parse({provider:req.body?.provider,accountEmail:req.body?.accountEmail,folder:req.body?.folder});let conn=await db.prepare('SELECT id FROM mail_connections WHERE user_id=? AND provider=? AND account_email IS ?').get(req.user.id,d.provider,d.accountEmail||null);if(!conn){const r=await db.prepare('INSERT INTO mail_connections(user_id,provider,account_email,status) VALUES(?,?,?,?)').run(req.user.id,d.provider,d.accountEmail||null,'import');conn={id:Number(r.lastInsertRowid)};}let imported=0,duplicates=0;for(const f of req.files||[]){if(!/\.eml$/i.test(f.originalname) && !/message\/rfc822/i.test(f.mimetype||''))continue;const m=parseMailText(f.buffer.toString('utf8'));const h=mailHash(m);if(await db.prepare('SELECT id FROM mail_messages WHERE user_id=? AND content_hash=?').get(req.user.id,h)){duplicates++;continue;}await db.prepare(`INSERT INTO mail_messages(user_id,connection_id,message_uid,sender_name,sender_email,subject,body_text,sent_at,has_attachments,attachment_names_json,folder_name,content_hash) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`).run(req.user.id,conn.id,m.messageUid,m.senderName,m.senderEmail,m.subject,m.bodyText,m.sentAt||null,m.hasAttachments,JSON.stringify(m.attachmentNames),d.folder,h);imported++;}await audit(req.user.id,'mail.imported',{imported,duplicates},req);res.json({ok:true,imported,duplicates});});
 app.post('/api/mail/smart-select',requireSameOrigin,requireAuth,async (req,res)=>{const d=mailSearchSchema.parse(req.body||{});const rows=await mailQuery(req.user.id,d);res.json({ids:rows.map(x=>x.id),count:rows.length});});
 app.post('/api/mail/bulk',requireSameOrigin,requireAuth,async (req,res)=>{const d=mailBulkSchema.parse(req.body||{});const ids=d.ids;const placeholders=ids.map(()=>'?').join(',');if(!ids.length)return res.json({updated:0});const ownedRows=await db.prepare(`SELECT * FROM mail_messages WHERE user_id=? AND id IN (${placeholders})`).all(req.user.id,...ids);const owned=ownedRows.map(x=>x.id);let updated=0;for(const row of ownedRows){const id=row.id; if(row.connection_id){const conn=await db.prepare('SELECT * FROM mail_connections WHERE id=? AND user_id=?').get(row.connection_id,req.user.id); if(conn&&(conn.provider==='google'||conn.provider==='microsoft')){try{if(conn.provider==='google'){const t=await gmailToken(req.user.id,conn.id);let labels=[];if(d.action==='read')labels={addLabelIds:[],removeLabelIds:['UNREAD']};else if(d.action==='unread')labels={addLabelIds:['UNREAD'],removeLabelIds:[]};else if(d.action==='star')labels={addLabelIds:['STARRED'],removeLabelIds:[]};else if(d.action==='unstar')labels={addLabelIds:[],removeLabelIds:['STARRED']};else if(d.action==='archive')labels={addLabelIds:[],removeLabelIds:['INBOX']};else if(d.action==='delete'){await googleApi(t.access_token,`https://gmail.googleapis.com/gmail/v1/users/me/messages/${encodeURIComponent(row.message_uid)}/trash`,{method:'POST',body:'{}'});labels=null;}else if(d.action==='move'){let cfg=JSON.parse(conn.settings_json||'{}'),folders=cfg.folders||[],target=folders.find(x=>String(x.name).toLowerCase()===String(d.value||'').toLowerCase());if(!target){const created=await googleApi(t.access_token,'https://gmail.googleapis.com/gmail/v1/users/me/labels',{method:'POST',body:JSON.stringify({name:d.value||'Inbox',labelListVisibility:'labelShow',messageListVisibility:'show'})});target={id:created.id,name:created.name};folders.push(target);await db.prepare('UPDATE mail_connections SET settings_json=? WHERE id=? AND user_id=?').run(JSON.stringify({...cfg,folders}),conn.id,req.user.id);} labels={addLabelIds:[target.id],removeLabelIds:['INBOX']};} if(labels)await googleApi(t.access_token,`https://gmail.googleapis.com/gmail/v1/users/me/messages/${encodeURIComponent(row.message_uid)}/modify`,{method:'POST',body:JSON.stringify(labels)});}
 else {const t=await microsoftToken(req.user.id,conn.id);const base=`https://graph.microsoft.com/v1.0/me/messages/${encodeURIComponent(row.message_uid)}`;if(d.action==='read'||d.action==='unread')await graphApi(t.access_token,base,{method:'PATCH',body:JSON.stringify({isRead:d.action==='read'})});else if(d.action==='delete')await graphApi(t.access_token,base,{method:'DELETE'});else if(d.action==='archive'||d.action==='move'){let cfg=JSON.parse(conn.settings_json||'{}'),folders=cfg.folders||[],name=d.action==='archive'?'Archive':(d.value||'Inbox'),target=folders.find(x=>String(x.name).toLowerCase()===String(name).toLowerCase());if(!target)throw new Error(`Microsoft folder '${name}' was not found.`);await graphApi(t.access_token,base+'/move',{method:'POST',body:JSON.stringify({destinationId:target.id})});} }
@@ -1363,7 +1625,7 @@ const compareUpload = multer({ storage: multer.memoryStorage(), limits: { fileSi
   if (/application\/pdf|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document|text\//.test(file.mimetype) || /\.(pdf|docx|txt|md)$/i.test(file.originalname)) cb(null,true);
   else cb(new Error('Only PDF, DOCX or text documents are accepted.'));
 }});
-const pdfStudioUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 500 * 1024 * 1024, files: 50 }, fileFilter: (req,file,cb) => {
+const pdfStudioUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024, files: 10 }, fileFilter: (req,file,cb) => {
   if (file.mimetype === 'application/pdf' || /\.pdf$/i.test(file.originalname)) cb(null,true);
   else cb(new Error('Only PDF files are accepted.'));
 }});
@@ -1389,7 +1651,7 @@ function sendStudioBuffer(res, result, filename, mime) {
 }
 
 app.post('/api/document-pdf/inspect', requireSameOrigin, requireAuth, async (req,res)=>{
-  pdfStudioUpload.array('files',50)(req,res,async err=>{
+  pdfStudioUpload.array('files',10)(req,res,async err=>{
     if(err) return res.status(400).json({error:err.message});
     const files=req.files||[];
     if(!files.length) return res.status(400).json({error:'Select at least one PDF.'});
@@ -1469,7 +1731,7 @@ app.post('/api/document-pdf/create', requireSameOrigin, requireAuth, async (req,
 });
 
 app.post('/api/document-pdf/merge', requireSameOrigin, requireAuth, async (req,res)=>{
-  pdfStudioUpload.array('files',20)(req,res,async err=>{if(err)return res.status(400).json({error:err.message});const files=req.files||[];if(files.length<2)return res.status(400).json({error:'Select at least two PDFs.'});const charge=await consumeToolUse(req.user.id,'document-pdf-studio');if(!charge.ok)return res.status(charge.status).json(charge.body);try{const buffer=await mergePdfs(files.map(f=>f.buffer));const file=await studioFileResponse(req.user.id,'document-pdf-studio','merged-document.pdf',buffer,'application/pdf');res.status(201).json({ok:true,file,usage:charge.usage});}catch(e){res.status(422).json({error:e.message||'Unable to merge these PDFs.'});}});
+  pdfStudioUpload.array('files',10)(req,res,async err=>{if(err)return res.status(400).json({error:err.message});const files=req.files||[];if(files.length<2)return res.status(400).json({error:'Select at least two PDFs.'});const charge=await consumeToolUse(req.user.id,'document-pdf-studio');if(!charge.ok)return res.status(charge.status).json(charge.body);try{const buffer=await mergePdfs(files.map(f=>f.buffer));const file=await studioFileResponse(req.user.id,'document-pdf-studio','merged-document.pdf',buffer,'application/pdf');res.status(201).json({ok:true,file,usage:charge.usage});}catch(e){res.status(422).json({error:e.message||'Unable to merge these PDFs.'});}});
 });
 
 app.post('/api/document-pdf/split', requireSameOrigin, requireAuth, async (req,res)=>{
@@ -1509,7 +1771,7 @@ app.post('/api/document-pdf/add-remove', requireSameOrigin, requireAuth, async (
 });
 
 app.post('/api/document-pdf/convert', requireSameOrigin, requireAuth, async (req,res)=>{
-  const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:500*1024*1024,files:1},fileFilter:(rq,file,cb)=>{if(/\.(pdf|docx|pptx|xlsx|png|jpe?g|webp)$/i.test(file.originalname)||/application\/(pdf|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|presentationml\.presentation|spreadsheetml\.sheet))|image\//.test(file.mimetype))cb(null,true);else cb(new Error('Supported formats: PDF, DOCX, PPTX, XLSX, PNG, JPG and WEBP.'));}});
+  const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:25*1024*1024,files:1},fileFilter:(rq,file,cb)=>{if(/\.(pdf|docx|pptx|xlsx|png|jpe?g|webp)$/i.test(file.originalname)||/application\/(pdf|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|presentationml\.presentation|spreadsheetml\.sheet))|image\//.test(file.mimetype))cb(null,true);else cb(new Error('Supported formats: PDF, DOCX, PPTX, XLSX, PNG, JPG and WEBP.'));}});
   upload.single('file')(req,res,async err=>{if(err)return res.status(400).json({error:err.message});if(!req.file)return res.status(400).json({error:'Select a document.'});const target=String(req.body?.target||'pdf').toLowerCase();const advanced=['docx','pptx','xlsx','txt'].includes(target)&&!/\.(png|jpe?g|webp)$/i.test(req.file.originalname);const gate=await documentPlanGate(req.user.id,{files:1,totalBytes:req.file.size,advanced});if(!gate.ok)return res.status(gate.status).json(gate.body);try{if(['png','jpg'].includes(target)&&!/\.pdf$/i.test(req.file.originalname))throw new Error('PNG/JPG conversion targets require a PDF source.');const result=await convertDocumentFormat(req.file.buffer,req.file.originalname,target,req.body?.scope||'all');if(Array.isArray(result)){const files=await Promise.all(result.map((b,i)=>studioFileResponse(req.user.id,'document-pdf-studio',`${safeName(req.file.originalname)}-page-${i+1}.${target}`,b,target==='png'?'image/png':'image/jpeg','document-pdf/images')));return res.status(201).json({ok:true,files});}const mime=target==='pdf'?'application/pdf':target==='docx'?'application/vnd.openxmlformats-officedocument.wordprocessingml.document':target==='pptx'?'application/vnd.openxmlformats-officedocument.presentationml.presentation':target==='xlsx'?'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':'text/plain';const file=await studioFileResponse(req.user.id,'document-pdf-studio',`${safeName(req.file.originalname)}.${target}`,result,mime);res.status(201).json({ok:true,file});}catch(e){res.status(422).json({error:e.message||'Unable to convert this document.'});}});
 });
 
@@ -1612,7 +1874,11 @@ app.get('/api/files',requireAuth,async (req,res)=>{
   res.json({files:rows,storage:{...await storageInfo(),usedBytes:Number(usage.bytes),fileCount:Number(usage.count),limitBytes,usagePercent:limitBytes?Math.min(100,Number(usage.bytes)/limitBytes*100):0}});
 });
 
-const generalFileUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:Number(process.env.MAX_FILE_SIZE_BYTES||100*1024*1024),files:20},fileFilter:(req,file,cb)=>cb(null,true)});
+const configuredMaxFileSize = Number(process.env.MAX_FILE_SIZE_BYTES || 25 * 1024 * 1024);
+const maxFileSizeBytes = Number.isFinite(configuredMaxFileSize) && configuredMaxFileSize >= 1024 * 1024
+  ? Math.min(configuredMaxFileSize, 50 * 1024 * 1024)
+  : 25 * 1024 * 1024;
+const generalFileUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:maxFileSizeBytes,files:20},fileFilter:(req,file,cb)=>cb(null,true)});
 app.post('/api/files/upload',requireSameOrigin,requireAuth,async (req,res)=>{
   generalFileUpload.array('files',20)(req,res,async error=>{
     if(error) return res.status(400).json({error:error.code==='LIMIT_FILE_SIZE'?'File exceeds the maximum allowed size.':error.message});
@@ -1667,10 +1933,10 @@ app.post('/api/storage/cleanup-preview',requireAuth,async (req,res)=>{const days
 app.post('/api/files/:id/process',requireSameOrigin,requireAuth,async (req,res)=>{const row=await safeFileRow(req.user.id,Number(req.params.id));if(!row)return res.status(404).json({error:'File not found.'});const payload={userId:req.user.id,fileId:row.id,operation:String(req.body?.operation||'process').slice(0,100)};const dbJob=await db.prepare("INSERT INTO jobs (type,payload_json,status,max_attempts) VALUES (?,?,?,?)").run('file.process',JSON.stringify(payload),'queued',5);const dbJobId=Number(dbJob.lastInsertRowid);try{const job=await enqueueJob('file.process',{...payload,dbJobId},{attempts:5});await db.prepare('UPDATE user_files SET status=? WHERE id=?').run('processing',row.id);await audit(req.user.id,'file.process.queued',{fileId:row.id,jobId:dbJobId,queueJobId:String(job.id)},req);res.status(202).json({job:{id:dbJobId,queueId:String(job.id),status:'queued'},file:{id:row.id,status:'processing'}});}catch(error){await db.prepare("UPDATE jobs SET status='failed',last_error=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").run(String(error.message||error),dbJobId);return res.status(503).json({error:'Job queue unavailable.',detail:isProduction?undefined:String(error.message||error)});}});
 
 // Phase 8: Batch Studio — shared multi-file processing workspace.
-const batchUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:Number(process.env.MAX_FILE_SIZE_BYTES||100*1024*1024),files:500},fileFilter:(req,file,cb)=>cb(null,true)});
+const batchUpload=multer({storage:multer.memoryStorage(),limits:{fileSize:maxFileSizeBytes,files:10},fileFilter:(req,file,cb)=>cb(null,true)});
 app.post('/api/batch/process',requireSameOrigin,requireAuth,async (req,res)=>{
-  batchUpload.array('files',500)(req,res,async error=>{
-    if(error)return res.status(400).json({error:error.code==='LIMIT_FILE_COUNT'?'Maximum batch size is 500 files.':error.message});
+  batchUpload.array('files',10)(req,res,async error=>{
+    if(error)return res.status(400).json({error:error.code==='LIMIT_FILE_COUNT'?'Maximum batch size is 10 files.':error.message});
     const files=req.files||[]; if(!files.length)return res.status(400).json({error:'Select at least one file.'});
     const operation=String(req.body?.operation||'').toLowerCase(); const value=String(req.body?.value||'').trim().slice(0,100);
     const supported=['convert','compress','resize','rename','organize','watermark','extract','merge','split','package','image','pdf','document','spreadsheet'];

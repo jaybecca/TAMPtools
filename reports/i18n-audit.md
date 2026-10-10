@@ -1,6 +1,6 @@
 # TAMPtools 22-language localization audit
 
-Generated: 2026-10-09T07:06:14.223Z
+Generated: 2026-10-09T17:44:21.203Z
 
 - Expected locales: 22
 - Configured locales: 22

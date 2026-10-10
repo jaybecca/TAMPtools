@@ -15,7 +15,15 @@ const pdfinfo = process.env.PDFINFO_BIN || 'pdfinfo';
 
 const safeBase = (name='document') => path.basename(name).replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9._-]/g,'_') || 'document';
 const tempDir = prefix => fs.promises.mkdtemp(path.join(os.tmpdir(), `tamptools-${prefix}-`));
-const run = (bin,args,options={}) => execFileAsync(bin,args,{maxBuffer:32*1024*1024,...options});
+const pdfToolTimeoutMs = (() => {
+  const raw = Number(process.env.PDF_TOOL_TIMEOUT_MS || 120000);
+  return Number.isFinite(raw) && raw >= 1000 ? Math.min(raw, 300000) : 120000;
+})();
+const run = (bin,args,options={}) => execFileAsync(bin,args,{
+  maxBuffer:32*1024*1024,
+  timeout:pdfToolTimeoutMs,
+  ...options
+});
 
 
 
@@ -138,7 +146,19 @@ export async function imagesToPdf(buffers){
   return pages.length===1 ? pages[0] : mergePdfs(pages);
 }
 
-export async function extractPdfTextFull(buffer){const dir=await tempDir('pdftext');try{const input=path.join(dir,'input.pdf'),out=path.join(dir,'out.txt');await fs.promises.writeFile(input,buffer);await run(pdftotext,['-layout',input,out]);return (await fs.promises.readFile(out,'utf8')).replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();}finally{await fs.promises.rm(dir,{recursive:true,force:true}).catch(()=>{});}}
+export async function extractPdfTextFull(buffer){
+  const dir=await tempDir('pdftext');
+  try {
+    const input=path.join(dir,'input.pdf'),out=path.join(dir,'out.txt');
+    await fs.promises.writeFile(input,buffer);
+    await run(pdftotext,['-layout',input,out]);
+    const {size}=await fs.promises.stat(out);
+    if(size>2*1024*1024) throw new Error('Extracted PDF text exceeds the 2 MB limit.');
+    return (await fs.promises.readFile(out,'utf8')).replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+  } finally {
+    await fs.promises.rm(dir,{recursive:true,force:true}).catch(()=>{});
+  }
+}
 
 export async function ocrPdf(buffer,lang='eng'){const pages=await convertPdfToImages(buffer,'png',true);const dir=await tempDir('pdfocr');try{const texts=[];for(let i=0;i<pages.length;i++){const p=path.join(dir,`page-${i+1}.png`);const out=path.join(dir,`page-${i+1}`);await fs.promises.writeFile(p,pages[i].buffer);await run(tesseract,[p,out,'-l',lang],{maxBuffer:8*1024*1024});texts.push(await fs.promises.readFile(`${out}.txt`,'utf8'));}return texts.join('\n\n').replace(/\n{3,}/g,'\n\n').trim();}finally{await fs.promises.rm(dir,{recursive:true,force:true}).catch(()=>{});}}
 

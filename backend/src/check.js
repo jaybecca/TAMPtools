@@ -10,7 +10,7 @@ const frontend=path.join(project,'frontend');
 const base=(process.env.TAMPTOOLS_URL||'http://localhost:4000').replace(/\/+$/,'');
 let failures=0,warnings=0;
 const ok=m=>console.log(`✓ ${m}`),warn=m=>{warnings++;console.log(`⚠ ${m}`)},fail=m=>{failures++;console.log(`✗ ${m}`)};
-function files(dir,ext){const out=[];function walk(d){if(!fs.existsSync(d))return;for(const e of fs.readdirSync(d,{withFileTypes:true})){const f=path.join(d,e.name);if(e.isDirectory())walk(f);else if(e.name.endsWith(ext))out.push(f)}}walk(dir);return out}
+function files(dir,ext){const out=[];function walk(d){if(!fs.existsSync(d))return;for(const e of fs.readdirSync(d,{withFileTypes:true})){if(e.isDirectory()&&['node_modules','.git'].includes(e.name))continue;const f=path.join(d,e.name);if(e.isDirectory())walk(f);else if(e.name.endsWith(ext))out.push(f)}}walk(dir);return out}
 function productChecks(){
  const pkg=JSON.parse(fs.readFileSync(path.join(backend,'package.json'),'utf8'));
  pkg.version==='4.5.0'?ok('Backend version: 4.5.0'):fail(`Unexpected backend version: ${pkg.version}`);
@@ -45,6 +45,19 @@ function staticChecks(){
  for(const f of ['social.js','publisher.js','campaigns.js'])fs.existsSync(path.join(backend,'src',f))?fail(`Legacy backend module remains: ${f}`):ok(`Legacy backend module removed: ${f}`);
 }
 function syntax(){console.log('\nJavaScript syntax checks');for(const f of [...files(backend,'.js'),...files(frontend,'.js')]){const r=spawnSync(process.execPath,['--check',f],{encoding:'utf8'});const rel=path.relative(project,f);r.status===0?ok(`JavaScript syntax: ${rel}`):fail(`JavaScript syntax: ${rel} — ${(r.stderr||r.stdout||'syntax error').trim().split('\n').slice(-2).join(' ')}`)}}
-function refs(){console.log('\nHTML local-reference checks');const attr=/\b(?:src|href)=['"]([^'"]+)['"]/gi;for(const f of files(frontend,'.html')){const html=fs.readFileSync(f,'utf8');let m;while((m=attr.exec(html))){let ref=m[1].split('?')[0].split('#')[0];if(!ref||ref.includes('${')||ref.startsWith('#')||/^(?:https?:)?\/\//i.test(ref)||/^(?:mailto:|tel:|data:|javascript:)/i.test(ref))continue;const candidate=ref.startsWith('/')?path.join(frontend,ref.slice(1)):path.resolve(path.dirname(f),ref);if(fs.existsSync(candidate))ok(`HTML reference: ${path.relative(frontend,f)} → ${ref}`);else if(ref.startsWith('/api/')||(!path.extname(ref)&&ref.startsWith('/')))warn(`Server route not checked statically: ${path.relative(frontend,f)} → ${ref}`);else fail(`Missing HTML reference: ${path.relative(frontend,f)} → ${ref}`)}}}
+
+function serverRouteExists(ref){
+ const source=fs.readFileSync(path.join(backend,'src/server.js'),'utf8');
+ const routeDecl=/app\.(get|all)\s*\(\s*(['"])([^'"]+)\2/g;
+ let m;
+ while((m=routeDecl.exec(source))){
+  const pattern='^'+m[3].split('/').map(part=>
+   part.startsWith(':')?'[^/]+':part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')
+  ).join('/')+'/?$';
+  if(new RegExp(pattern).test(ref))return true;
+ }
+ return false;
+}
+function refs(){console.log('\nHTML local-reference checks');const attr=/\b(?:src|href)=['"]([^'"]+)['"]/gi;for(const f of files(frontend,'.html')){const html=fs.readFileSync(f,'utf8');let m;while((m=attr.exec(html))){let ref=m[1].split('?')[0].split('#')[0];if(!ref||ref.includes('${')||ref.startsWith('#')||/^(?:https?:)?\/\//i.test(ref)||/^(?:mailto:|tel:|data:|javascript:)/i.test(ref))continue;const candidate=ref.startsWith('/')?path.join(frontend,ref.slice(1)):path.resolve(path.dirname(f),ref);if(fs.existsSync(candidate))ok(`HTML reference: ${path.relative(frontend,f)} → ${ref}`);else if(ref.startsWith('/api/')&&serverRouteExists(ref))ok(`HTML server route: ${path.relative(frontend,f)} → ${ref}`);else if(ref.startsWith('/api/')||(!path.extname(ref)&&ref.startsWith('/')))warn(`Server route not checked statically: ${path.relative(frontend,f)} → ${ref}`);else fail(`Missing HTML reference: ${path.relative(frontend,f)} → ${ref}`)}}}
 async function live(){console.log('\nLive checks');try{const h=await fetch(`${base}/api/health`);if(!h.ok)throw Error(`HTTP ${h.status}`)}catch{warn(`Live checks skipped: ${base} is not running. Start with npm run dev.`);return}for(const route of ['/','/index.html','/signup.html','/signin.html','/dashboard.html']){try{const r=await fetch(base+route,{redirect:'manual'});if(route==='/dashboard.html'&&[302,303].includes(r.status))ok(`Protected page ${route}: redirects to sign-in`);else if(r.ok)ok(`Frontend page ${route}: HTTP ${r.status}`);else fail(`Frontend page ${route}: HTTP ${r.status}`)}catch(e){fail(`Frontend page ${route}: ${e.message}`)}}for(const a of ['/styles.css','/app.js','/workspace.js','/logo.png','/favicon.png']){try{const r=await fetch(base+a);r.ok?ok(`Frontend asset ${a}: HTTP ${r.status}`):fail(`Frontend asset ${a}: HTTP ${r.status}`)}catch(e){fail(`Frontend asset ${a}: ${e.message}`)}}for(const a of ['/api/health','/api/plans','/api/tools','/api/locale','/api/integrations/status','/api/payments/providers']){try{const r=await fetch(base+a);r.ok?ok(`API ${a}: HTTP ${r.status}`):fail(`API ${a}: HTTP ${r.status}`)}catch(e){fail(`API ${a}: ${e.message}`)}}}
 staticChecks();productChecks();syntax();refs();await live();console.log('\n----------------------------------------');console.log(failures?`FAIL: ${failures} failure(s), ${warnings} warning(s).`:`PASS: 0 failures, ${warnings} warning(s).`);process.exitCode=failures?1:0;

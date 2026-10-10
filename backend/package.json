@@ -15,22 +15,23 @@
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.899.0",
+    "@imgly/background-removal-node": "^1.4.5",
+    "bullmq": "^5.63.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "express-rate-limit": "^8.0.1",
     "helmet": "^8.1.0",
-    "zod": "^4.0.0",
+    "imapflow": "^1.0.186",
+    "ioredis": "^5.7.0",
+    "jose": "^6.2.12",
+    "mailparser": "^3.7.4",
     "multer": "^2.0.2",
-    "sharp": "^0.34.5",
-    "@imgly/background-removal-node": "^1.4.5",
     "pdfjs-dist": "^5.6.205",
     "pg": "^8.16.3",
-    "bullmq": "^5.63.0",
-    "ioredis": "^5.7.0",
-    "@aws-sdk/client-s3": "^3.899.0",
-    "imapflow": "^1.0.186",
-    "mailparser": "^3.7.4",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.5",
+    "zod": "^4.0.0"
   }
 }

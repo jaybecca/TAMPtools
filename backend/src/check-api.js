@@ -13,8 +13,13 @@ const checks = [
     return Array.isArray(items) && items.length > 0;
   }],
   ["/api/locale", body => Boolean(body && body.country && body.currency && body.language && Array.isArray(body.supportedCurrencies))],
-  ["/api/i18n?lang=fr", body => Boolean(body && body.language === "fr" && body.translations && body.translations.signIn)]
-];
+  ["/api/i18n?lang=fr", body => Boolean(
+  body &&
+  body.language === "fr" &&
+  body.translations &&
+  body.translations["Sign in"] === "Se connecter" &&
+  body.translations["Get started"] === "Commencer"
+)]];
 
 async function main() {
   console.log("TAMPtools API integration check");

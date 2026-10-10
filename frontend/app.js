@@ -332,3 +332,22 @@ document.addEventListener('DOMContentLoaded',()=>{
 (()=>{document.addEventListener('DOMContentLoaded',async()=>{try{const r=await fetch('/api/support',{cache:'no-store'});const d=await r.json();document.getElementById('supportEmail').href='mailto:'+d.email;document.getElementById('supportEmail').textContent=d.email;if(d.whatsappAvailable){const a=document.getElementById('whatsappLink');a.href='https://wa.me/'+d.whatsappNumber;a.hidden=false;document.getElementById('whatsappNotice').textContent='Open WhatsApp to send text, a voice note or photos.'}}catch{}})})();
 /* Persistent brand mark: recover gracefully if a cached/partial logo asset fails. */
 document.addEventListener('error',e=>{const img=e.target;if(img&&img.tagName==='IMG'&&/\/logo\.png(?:$|\?)/.test(img.src)&&!img.dataset.logoFallback){img.dataset.logoFallback='1';img.alt='TAMPtools';img.style.visibility='visible';img.removeAttribute('src');img.outerHTML='<span class="brand-fallback">TAMP<span>tools</span></span>';}},true);
+
+
+
+// Reveal Microsoft sign-in only when its backend configuration is available.
+(() => {
+  const initMicrosoftSignIn = () => {
+    const button = document.getElementById("microsoftSignIn");
+    if (!button) return;
+    fetch("/api/auth/microsoft/status", { cache: "no-store" })
+      .then(response => response.json())
+      .then(data => { button.hidden = !data.configured; })
+      .catch(() => { button.hidden = true; });
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMicrosoftSignIn, { once: true });
+  } else {
+    initMicrosoftSignIn();
+  }
+})();
