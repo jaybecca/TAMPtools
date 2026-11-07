@@ -22,8 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
-        with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
@@ -144,7 +142,8 @@ jobs:
   minikube-smoke:
     name: Minikube deployment and service smoke test
     runs-on: ubuntu-latest
-    needs: [kubernetes-security]
+    needs: [dependency-refresh, kubernetes-security]
+    if: always() && needs.kubernetes-security.result == 'success' && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
     steps:
       - uses: actions/checkout@v4
       - name: Start Minikube
