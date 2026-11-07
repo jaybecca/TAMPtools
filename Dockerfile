@@ -24,7 +24,7 @@ RUN apk upgrade --no-cache \
       ttf-dejavu \
       libstdc++ \
  && python3 -m venv /opt/venv \
- && /opt/venv/bin/pip install --no-cache-dir --upgrade pip setuptools pypdf \
+ && /opt/venv/bin/pip install --no-cache-dir --upgrade pip "setuptools>=78.1.1" pypdf \
  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
       /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
       /opt/yarn-v1.22.22
