@@ -97,6 +97,8 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - name: Build production container
         run: docker build --pull --tag tamptools:${{ github.sha }} .
       - name: Trivy filesystem vulnerability and secret scan
@@ -130,6 +132,8 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - name: Scan Kubernetes configuration
         uses: aquasecurity/trivy-action@v0.36.0
         with:
@@ -146,6 +150,8 @@ jobs:
     if: always() && needs.kubernetes-security.result == 'success' && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - name: Start Minikube
         uses: medyagh/setup-minikube@e9e035a86bbc3caea26a450bd4dbf9d0c453682e # v0.0.21
         env:
