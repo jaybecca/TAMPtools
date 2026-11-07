@@ -12,7 +12,7 @@
     "check": "node src/check.js",
     "check:api": "node src/check-api.js",
     "worker": "node src/worker.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test --test-concurrency=1 test/*.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.899.0",
