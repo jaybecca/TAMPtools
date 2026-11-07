@@ -1014,3 +1014,8 @@ body.app-layout{background:var(--workspace-bg)}
   color:#fff;
   border-color:transparent;
 }
+
+
+/* Homepage keeps language selection without reserving space for currency. */
+.public-home .locale-controls select{max-width:118px}
+@media(max-width:850px){.public-home .locale-controls select{max-width:92px}}
