@@ -25,6 +25,8 @@ jobs:
       - run: npm ci
       - name: Run product validation
         run: npm run check
+      - name: Install PDF system tools
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils ghostscript
       - name: Run backend test suite
         run: npm test
       - run: node --check src/server.js
