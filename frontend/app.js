@@ -351,3 +351,6 @@ document.addEventListener('error',e=>{const img=e.target;if(img&&img.tagName==='
     initMicrosoftSignIn();
   }
 })();
+
+/* Shared Studio confidence and account-aware advert components for guarded pages. */
+(()=>{if(!document.querySelector('link[href="/studio-engine.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/studio-engine.css';document.head.append(l);}for(const src of ['/studio-engine.js','/ad-slot.js'])if(!document.querySelector('script[src="'+src+'"]')){const s=document.createElement('script');s.src=src;s.defer=true;document.head.append(s);}})();
