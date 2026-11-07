@@ -23,6 +23,7 @@ async function extractPdfText(buffer) {
     data: new Uint8Array(buffer),
     useWorkerFetch: false,
     isEvalSupported: false,
+    enableScripting: false,
     standardFontDataUrl: fontsDir
   }).promise;
 
