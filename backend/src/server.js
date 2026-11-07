@@ -2308,6 +2308,20 @@ app.get('/admin.html',async (req,res)=>{const user=await getCurrentUser(req);if(
 // /api/tools/* endpoint), not at the static-file layer. Serving these as
 // JSON 401s here previously broke every tool page for logged-out visitors.
 
+
+app.use((req,res,next) => {
+  if (req.method !== 'GET') return next();
+  const requested = req.path === '/' ? '/index.html' : req.path;
+  if (!requested.toLowerCase().endsWith('.html')) return next();
+  let target;
+  try { target = path.resolve(frontendDir, '.' + decodeURIComponent(requested)); } catch { return next(); }
+  if (!target.startsWith(frontendDir + path.sep) || !fs.existsSync(target) || !fs.statSync(target).isFile()) return next();
+  let html = fs.readFileSync(target, 'utf8');
+  const additions = '<link rel="stylesheet" href="/studio-engine.css"><script src="/studio-engine.js" defer></script><script src="/ad-slot.js" defer></script>';
+  if (!html.includes('/ad-slot.js')) html = html.replace(/<\/body>/i, additions + '</body>');
+  res.type('html').send(html);
+});
+
 app.use(express.static(frontendDir));
 app.get("/{*splat}", async (req, res) => res.sendFile(path.join(frontendDir, "index.html")));
 
