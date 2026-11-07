@@ -6,11 +6,11 @@ import path from 'node:path';
 const root=path.resolve(path.dirname(new URL(import.meta.url).pathname),'../..');
 
 test('Phase 36 document workspace calls real processing endpoints',()=>{
-  const w=fs.readFileSync(path.join(root,'frontend/workspace.js'),'utf8');
-  assert.match(w,/const endpoint=\{merge:'merge',split:'split',compress:'compress',convert:'pdf-to-image','image-to-pdf':'image-to-pdf',organize:'organize',ocr:'ocr','extract-text':'extract-text',compare:'compare'\}/);
-  assert.match(w,/select\('image-to-pdf'\)/);
+  const w=fs.readFileSync(path.join(root,'frontend/apps/document-pdf.js'),'utf8');
+  assert.match(w,/image-to-pdf/);
+  assert.match(w,/api\/document-pdf\/image-to-pdf/);
   assert.match(w,/Working…/);
-  assert.match(w,/Done — your result is ready/);
+  assert.match(w,/Your processed document is ready/);
 });
 
 test('Phase 36 fixes multi-result PDF conversion and multi-image PDF creation',()=>{
