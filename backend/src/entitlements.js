@@ -7,7 +7,7 @@ export function trialActive(user) {
 export async function getPlanForUser(user) {
   if (typeof user === 'number' || typeof user === 'string') user = await db.prepare('SELECT id,plan,trial_ends_at AS trialEndsAt FROM users WHERE id=?').get(Number(user));
   const ownerRole = user?.id ? await db.prepare('SELECT role FROM admin_roles WHERE user_id=?').get(user.id) : null;
-  if (ownerRole) {
+  if (ownerRole?.role === 'owner') {
     const ownerPlan = await db.prepare("SELECT id,name,usd,gbp,ngn,prices_json AS pricesJson,monthly_uses AS monthlyUses,features_json AS featuresJson,scheduling_days AS schedulingDays,batch_posts AS batchPosts FROM plans WHERE name='Business' AND active=1").get();
     const baseFeatures = JSON.parse(ownerPlan?.featuresJson || '{}');
     const features = Object.fromEntries(Object.entries({ ...TRIAL_LIMITS, ...baseFeatures }).map(([key, value]) => [key, typeof value === 'number' ? Number.MAX_SAFE_INTEGER : value === false ? true : value]));
