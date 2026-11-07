@@ -1,14 +1,15 @@
-FROM node:22-bookworm-slim AS dependencies
+FROM node:22-trixie-slim AS dependencies
 WORKDIR /app/backend
 COPY backend/package.json backend/package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-FROM node:22-bookworm-slim AS runtime
+FROM node:22-trixie-slim AS runtime
 ENV NODE_ENV=production PORT=4000
 WORKDIR /app
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends ca-certificates ghostscript poppler-utils tesseract-ocr python3 python3-venv libvips42 fonts-dejavu-core \
+ && apt-get upgrade -y \
+ && apt-get install -y --no-install-recommends ca-certificates ghostscript poppler-utils tesseract-ocr python3 python3-venv fonts-dejavu-core \
  && python3 -m venv /opt/venv \
  && /opt/venv/bin/pip install --no-cache-dir --upgrade pip pypdf \
  && apt-get clean \
