@@ -405,6 +405,20 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
+  CREATE TABLE IF NOT EXISTS ads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, image_url TEXT NOT NULL,
+    target_url TEXT, alt_text TEXT NOT NULL DEFAULT 'TAMPtools advertisement',
+    width INTEGER NOT NULL DEFAULT 1200, height INTEGER NOT NULL DEFAULT 300,
+    active INTEGER NOT NULL DEFAULT 1, created_by INTEGER,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+  );
+  CREATE TABLE IF NOT EXISTS user_ad_preferences (
+    user_id INTEGER NOT NULL, ad_id INTEGER NOT NULL, enabled INTEGER NOT NULL DEFAULT 1,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (user_id, ad_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (ad_id) REFERENCES ads(id) ON DELETE CASCADE
+  );
   CREATE TABLE IF NOT EXISTS admin_roles (
     user_id INTEGER PRIMARY KEY,
     role TEXT NOT NULL DEFAULT 'admin',
@@ -416,5 +430,5 @@ db.exec(`
 const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
 if (adminEmail) {
   const adminUser = db.prepare('SELECT id FROM users WHERE email = ?').get(adminEmail);
-  if (adminUser) db.prepare("INSERT INTO admin_roles (user_id,role) VALUES (?, 'admin') ON CONFLICT(user_id) DO UPDATE SET role='admin'").run(adminUser.id);
+  if (adminUser) db.prepare("INSERT INTO admin_roles (user_id,role) VALUES (?, 'owner') ON CONFLICT(user_id) DO UPDATE SET role='owner'").run(adminUser.id);
 }
