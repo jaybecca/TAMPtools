@@ -1,0 +1,15 @@
+.git
+.github
+node_modules
+**/node_modules
+**/.env
+**/.env.*
+!**/.env.example
+**/*.log
+.DS_Store
+data
+backend/data
+frontend/uploads/ads/**
+coverage
+tmp
+*.zip
