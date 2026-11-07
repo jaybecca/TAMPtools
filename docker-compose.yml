@@ -69,6 +69,7 @@ services:
     environment:
       NODE_ENV: development
       DB_PROVIDER: postgres
+      DB_SSL: "false"
       DATABASE_URL: postgresql://tamptools:local-only-change-me@postgres:5432/tamptools
       REDIS_URL: redis://redis:6379
       STORAGE_PROVIDER: local
