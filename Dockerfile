@@ -6,13 +6,19 @@ RUN apk add --no-cache --virtual .build-deps python3 make g++
 COPY backend/package.json backend/package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
+FROM node:22.23.4-alpine3.23 AS python-dependencies
+# Build the PDF library outside the production image. Copy only pypdf's
+# runtime files so pip/setuptools and their build-time metadata never ship.
+RUN apk add --no-cache python3 py3-pip \
+ && python3 -m pip install --break-system-packages --no-cache-dir --no-deps \
+      --target=/opt/python-packages pypdf
+
 FROM node:22.23.4-alpine3.23 AS runtime
-ENV NODE_ENV=production PORT=4000
+ENV NODE_ENV=production PORT=4000 PYTHONPATH=/opt/python-packages
 WORKDIR /app
 
-# Keep the runtime on a minimal, patched Alpine base and install only the
-# document-processing tools the application actually invokes. The runtime uses an
-# isolated venv, so remove Alpine's older system pip/setuptools copies afterward.
+# Keep the runtime minimal: Python is present for document processing, but
+# pip, setuptools and virtual-environment tooling remain in the build stage.
 RUN apk upgrade --no-cache \
  && apk add --no-cache \
       ca-certificates \
@@ -21,19 +27,13 @@ RUN apk upgrade --no-cache \
       tesseract-ocr \
       tesseract-ocr-data-eng \
       python3 \
-      py3-pip \
       ttf-dejavu \
       libstdc++ \
- && python3 -m venv /opt/venv \
- && /opt/venv/bin/pip install --no-cache-dir --upgrade pip pypdf \
- && /opt/venv/bin/pip uninstall --yes setuptools \
- && if /opt/venv/bin/pip show setuptools >/dev/null 2>&1; then echo "setuptools must not ship in the production image"; exit 1; fi \
- && apk del py3-pip py3-setuptools \
  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
       /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
       /opt/yarn-v1.22.22
 
-ENV PATH="/opt/venv/bin:$PATH"
+COPY --from=python-dependencies /opt/python-packages /opt/python-packages
 COPY --from=dependencies /app/backend/node_modules ./backend/node_modules
 COPY backend ./backend
 COPY frontend ./frontend
