@@ -72,3 +72,8 @@ The workflow skips the scan if these are not configured. Once configured, the sc
 - Rotate the sample Compose password before sharing the stack.
 - Keep npm audit, Trivy and Gitleaks blocking checks enabled.
 - The API and worker run as the unprivileged node user in the supplied image.
+
+
+## Dependency lockfiles
+
+The repository maintains both the root and backend npm manifests for the supported root-level and backend-level workflows. Keep both lockfiles aligned when upgrading runtime packages. CI verifies the backend install/test path and Trivy scans both lockfiles; the dependency refresh step regenerates the root lockfile from the root manifest before the remaining gates run.
