@@ -55,7 +55,7 @@ jobs:
       - name: Build production container
         run: docker build --pull --tag tamptools:${{ github.sha }} .
       - name: Trivy filesystem vulnerability and secret scan
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .
@@ -65,7 +65,7 @@ jobs:
           exit-code: "1"
           format: table
       - name: Trivy container image scan
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: image
           image-ref: tamptools:${{ github.sha }}
@@ -84,7 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Scan Kubernetes configuration
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: config
           scan-ref: k8s/
