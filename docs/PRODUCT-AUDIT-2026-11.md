@@ -35,3 +35,13 @@ Repository audited: `jaybecca/TAMPtools` (default branch `main`, Phase 74 baseli
 - Verify advert uploads persist in production; local container filesystems may be ephemeral.
 - Verify Business-plan advert preferences and media delivery in a production-like environment.
 - Complete dedicated studio migrations for every legacy registry entry.
+
+## Dependency audit findings (CI baseline)
+
+The first full `npm audit --audit-level=high` run reported **11 vulnerabilities: 7 high and 4 moderate**. Affected dependency paths include:
+
+- High: `body-parser` (compressed-body denial of service), `lodash` (template code injection / prototype pollution), `multer` (request teardown denial of service), `pdfjs-dist` (malicious PDF JavaScript execution), and `zod` (validation denial of service).
+- High transitive exposure: `@imgly/background-removal-node` brings vulnerable `lodash`, `sharp` and `zod`; the audit also reported libvips/libheif/librsvg vulnerabilities through `sharp`, with no fix available in the resolved dependency tree at audit time.
+- Moderate: `ip-address`, `nodemailer` (also through `mailparser`) and `qs`.
+
+**Do not merge/deploy until the high-severity items are remediated or explicitly risk-accepted.** Apply compatible patch updates first; treat the PDF.js major-version upgrade and the background-removal/sharp dependency replacement as compatibility work requiring regression tests. Avoid blanket `npm audit fix --force` without reviewing breaking changes.
