@@ -118,15 +118,16 @@
   }
   function addControls(){
     const isAuth=document.body.classList.contains('auth-clean');
+    const isHome=document.body.classList.contains('public-home');
     const host=isAuth?$('.auth-toolbar'):($('.nav-actions')||$('.app-actions')); if(!host || host.querySelector('.locale-controls')) return;
     const wrap=document.createElement('div'); wrap.className='locale-controls';
-    wrap.innerHTML=`<select id="localeLanguage" aria-label="Language">${[['en','English (US)'],['en_gb','English (UK)'],['zh','中文（简体）'],['es','Español'],['hi','हिन्दी'],['fr','Français'],['ar','العربية'],['bn','বাংলা'],['pt','Português'],['ru','Русский'],['id','Bahasa Indonesia'],['ur','اردو'],['de','Deutsch'],['ja','日本語'],['pcm','Naijá'],['ar_eg','العربية المصرية'],['mr','मराठी'],['vi','Tiếng Việt'],['te','తెలుగు'],['ha','Hausa'],['zu','isiZulu'],['tr','Türkçe']].map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select>${isAuth?'':'<select id="localeCurrency" aria-label="Currency"></select>'}`;
+    wrap.innerHTML=`<select id="localeLanguage" aria-label="Language">${[['en','English (US)'],['en_gb','English (UK)'],['zh','中文（简体）'],['es','Español'],['hi','हिन्दी'],['fr','Français'],['ar','العربية'],['bn','বাংলা'],['pt','Português'],['ru','Русский'],['id','Bahasa Indonesia'],['ur','اردو'],['de','Deutsch'],['ja','日本語'],['pcm','Naijá'],['ar_eg','العربية المصرية'],['mr','मराठी'],['vi','Tiếng Việt'],['te','తెలుగు'],['ha','Hausa'],['zu','isiZulu'],['tr','Türkçe']].map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select>${(isAuth||isHome)?'':'<select id="localeCurrency" aria-label="Currency"></select>'}`;
     host.prepend(wrap);
     const lang=$('#localeLanguage'),cur=$('#localeCurrency');
     lang.value=localStorage.getItem('tamptools-language')||state.locale?.language||'en';
     if(cur) (state.locale?.supportedCurrencies||[]).forEach(c=>{const o=document.createElement('option');o.value=c.code;o.textContent=`${c.code} — ${c.symbol}`;cur.appendChild(o)});
     if(cur) cur.value=localStorage.getItem('tamptools-currency')||state.locale?.currency||'USD';
-    lang.onchange=()=>{localStorage.setItem('tamptools-language',lang.value);load(lang.value,cur.value)};
+    lang.onchange=()=>{localStorage.setItem('tamptools-language',lang.value);load(lang.value,cur?.value)};
     if(cur) cur.onchange=()=>{localStorage.setItem('tamptools-currency',cur.value);document.dispatchEvent(new CustomEvent('tamptools:currency',{detail:{currency:cur.value}}));translateNodes()};
   }
   async function load(langOverride,currencyOverride){
