@@ -50,10 +50,13 @@ const WHATSAPP_SUPPORT_NUMBER = String(process.env.WHATSAPP_SUPPORT_NUMBER || "2
 const isProduction = process.env.NODE_ENV === "production";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const frontendDir = path.resolve(__dirname, "../../frontend");
+const adsDir = path.resolve(frontendDir, "uploads/ads");
 const generatedDir = path.resolve(__dirname, "../../data/generated");
 const qrDir = path.resolve(__dirname, "../../data/qr-codes");
 fs.mkdirSync(generatedDir, { recursive: true });
 fs.mkdirSync(qrDir, { recursive: true });
+fs.mkdirSync(adsDir, { recursive: true });
+const adUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 }, fileFilter: (req, file, cb) => cb(null, ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype)) });
 
 const cookieName = "tamptools_session";
 const sessionDays = Number(process.env.SESSION_DAYS || 7);
@@ -236,6 +239,10 @@ async function getCurrentUser(req) {
     return null;
   }
 
+  const ownerEmail = String(process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+  if (ownerEmail && String(row.email || "").toLowerCase() === ownerEmail) {
+    await db.prepare("INSERT INTO admin_roles (user_id,role) VALUES (?, 'owner') ON CONFLICT(user_id) DO UPDATE SET role='owner'").run(row.id);
+  }
   return row;
 }
 
