@@ -14,6 +14,8 @@ jobs:
     name: Verify patched dependencies and backend tests
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: backend
@@ -27,6 +29,21 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: backend/package-lock.json
+      - name: Refresh root dependency lockfile
+        working-directory: .
+        run: npm update --package-lock-only --ignore-scripts --no-audit
+      - name: Commit refreshed root lockfile
+        working-directory: .
+        run: |
+          if ! git diff --quiet -- package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore: refresh root dependency lockfile"
+            git push origin HEAD:${{ github.head_ref }}
+          else
+            echo "Root dependency lockfile is already current."
+          fi
       - name: Install exact refreshed dependencies
         run: npm ci
       - name: Install PDF system tools
