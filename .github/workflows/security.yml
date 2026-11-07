@@ -11,11 +11,9 @@ permissions:
 
 jobs:
   dependency-refresh:
-    name: Refresh and persist patched dependency lockfile
+    name: Verify patched dependencies and backend tests
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     defaults:
       run:
         working-directory: backend
@@ -29,22 +27,13 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: backend/package-lock.json
-      - name: Resolve current patched dependency versions
-        run: npm update --package-lock-only --ignore-scripts --no-audit
-      - name: Commit refreshed lockfile to this pull request
-        working-directory: .
-        run: |
-          if ! git diff --quiet -- backend/package-lock.json; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add backend/package-lock.json
-            git commit -m "chore: refresh patched dependency lockfile"
-            git push origin HEAD:${{ github.head_ref }}
-          else
-            echo "Dependency lockfile is already current."
-          fi
       - name: Install exact refreshed dependencies
         run: npm ci
+      - name: Install PDF system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils ghostscript tesseract-ocr python3-pip
+          python3 -m pip install --break-system-packages pypdf
       - name: Validate refreshed dependencies
         run: |
           npm run check
