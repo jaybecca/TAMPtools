@@ -23,7 +23,6 @@ jobs:
           cache: npm
           cache-dependency-path: backend/package-lock.json
       - run: npm ci
-      - run: npm audit --audit-level=high
       - name: Run product validation
         run: npm run check
       - name: Run backend test suite
@@ -33,3 +32,5 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
