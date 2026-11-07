@@ -1,0 +1,86 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: tamptools
+      POSTGRES_USER: tamptools
+      POSTGRES_PASSWORD: local-only-change-me
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tamptools -d tamptools"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tamptools:local
+    environment:
+      NODE_ENV: development
+      PORT: "4000"
+      DB_PROVIDER: postgres
+      DATABASE_URL: postgresql://tamptools:local-only-change-me@postgres:5432/tamptools
+      REDIS_URL: redis://redis:6379
+      FRONTEND_ORIGIN: http://localhost:4000
+      FRONTEND_ORIGINS: http://localhost:4000,http://127.0.0.1:4000
+      APP_BASE_URL: http://localhost:4000
+      PUBLIC_APP_URL: http://localhost:4000
+      STORAGE_PROVIDER: local
+      TAMPTOOLS_STORAGE_DIR: /app/data/uploads
+    ports:
+      - "4000:4000"
+    volumes:
+      - app_data:/app/data
+      - ad_uploads:/app/frontend/uploads/ads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 45s
+      retries: 3
+    restart: unless-stopped
+
+  worker:
+    image: tamptools:local
+    command: ["node", "src/worker.js"]
+    working_dir: /app/backend
+    environment:
+      NODE_ENV: development
+      DB_PROVIDER: postgres
+      DATABASE_URL: postgresql://tamptools:local-only-change-me@postgres:5432/tamptools
+      REDIS_URL: redis://redis:6379
+      STORAGE_PROVIDER: local
+      TAMPTOOLS_STORAGE_DIR: /app/data/uploads
+    volumes:
+      - app_data:/app/data
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  app_data:
+  ad_uploads:
