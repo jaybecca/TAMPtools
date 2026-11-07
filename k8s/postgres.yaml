@@ -85,6 +85,13 @@ spec:
             limits:
               cpu: "1"
               memory: 1Gi
+      volumes:
+        - name: postgres-run
+          emptyDir:
+            sizeLimit: 64Mi
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi
   volumeClaimTemplates:
     - metadata:
         name: postgres-data
