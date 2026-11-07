@@ -10,7 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  security-build:
+  validate:
+    name: Product validation, tests and dependency audit
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,13 +29,136 @@ jobs:
       - name: Run product validation
         run: npm run check
       - name: Install PDF system tools
-        run: sudo apt-get update && sudo apt-get install -y poppler-utils ghostscript python3-pip && python3 -m pip install --break-system-packages pypdf
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils ghostscript tesseract-ocr python3-pip
+          python3 -m pip install --break-system-packages pypdf
       - name: Run backend test suite
         run: npm test
-      - run: node --check src/server.js
+      - name: Check server syntax
+        run: node --check src/server.js
       - name: Install Gitleaks and scan repository history
         run: |
           curl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz | tar -xz -C /tmp
-          /tmp/gitleaks detect --source . --log-opts="--all --no-merges" --redact --exit-code=2 --report-format=sarif --report-path=gitleaks.sarif
+          /tmp/gitleaks detect --source .. --log-opts="--all --no-merges" --redact --exit-code=2 --report-format=sarif --report-path=../gitleaks.sarif
       - name: Dependency vulnerability audit
         run: npm audit --audit-level=high
+
+  container-security:
+    name: Docker build and Trivy filesystem/image scans
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production container
+        run: docker build --pull --tag tamptools:\${{ github.sha }} .
+      - name: Trivy filesystem vulnerability and secret scan
+        uses: aquasecurity/trivy-action@0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: "false"
+          exit-code: "1"
+          format: table
+      - name: Trivy container image scan
+        uses: aquasecurity/trivy-action@0.36.0
+        with:
+          scan-type: image
+          image-ref: tamptools:\${{ github.sha }}
+          scanners: vuln,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: "false"
+          exit-code: "1"
+          format: table
+
+  kubernetes-security:
+    name: Trivy Kubernetes manifest scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan Kubernetes configuration
+        uses: aquasecurity/trivy-action@0.36.0
+        with:
+          scan-type: config
+          scan-ref: k8s/
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          format: table
+
+  minikube-smoke:
+    name: Minikube deployment and service smoke test
+    runs-on: ubuntu-latest
+    needs: [kubernetes-security]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start Minikube
+        uses: medyagh/setup-minikube@v0.0.20
+      - name: Build and load application image
+        run: |
+          docker build --pull -t tamptools:ci .
+          minikube image load tamptools:ci
+      - name: Create namespace and CI-only runtime secret
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl -n tamptools create secret generic tamptools-runtime \
+            --from-literal=POSTGRES_DB=tamptools \
+            --from-literal=POSTGRES_USER=tamptools \
+            --from-literal=POSTGRES_PASSWORD=ci-only-password \
+            --from-literal=DATABASE_URL=postgresql://tamptools:ci-only-password@postgres:5432/tamptools \
+            --from-literal=APP_BASE_URL=https://tamptools.invalid \
+            --from-literal=PUBLIC_APP_URL=https://tamptools.invalid \
+            --from-literal=FRONTEND_ORIGIN=https://tamptools.invalid \
+            --from-literal=FRONTEND_ORIGINS=https://tamptools.invalid
+      - name: Deploy PostgreSQL, Redis, API and worker
+        run: |
+          kubectl apply -f k8s/
+          kubectl -n tamptools rollout status statefulset/postgres --timeout=240s
+          kubectl -n tamptools rollout status deployment/redis --timeout=180s
+          kubectl -n tamptools rollout status deployment/tamptools --timeout=300s
+          kubectl -n tamptools rollout status deployment/tamptools-worker --timeout=180s
+      - name: Smoke test HTTP health endpoint
+        run: |
+          kubectl -n tamptools port-forward service/tamptools 4000:80 >/tmp/tamptools-port-forward.log 2>&1 &
+          echo $! >/tmp/tamptools-port-forward.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4000/api/health; then
+              echo
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/tamptools-port-forward.log
+          kubectl -n tamptools get pods -o wide
+          kubectl -n tamptools logs deployment/tamptools --all-containers=true --tail=100
+          exit 1
+
+  sonarqube:
+    name: SonarQube quality gate
+    runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }}
+      SONAR_PROJECT_KEY: \${{ vars.SONAR_PROJECT_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run SonarQube analysis and wait for quality gate
+        if: env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != ''
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: \${{ vars.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=\${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.qualitygate.wait=true
+      - name: Explain skipped SonarQube scan
+        if: env.SONAR_TOKEN == '' || env.SONAR_PROJECT_KEY == ''
+        run: echo "SonarQube scan skipped. Configure SONAR_TOKEN and SONAR_PROJECT_KEY; add SONAR_HOST_URL for self-hosted SonarQube Server."
