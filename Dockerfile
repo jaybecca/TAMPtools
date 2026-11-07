@@ -1,0 +1,28 @@
+FROM node:22-bookworm-slim AS dependencies
+WORKDIR /app/backend
+COPY backend/package.json backend/package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+
+FROM node:22-bookworm-slim AS runtime
+ENV NODE_ENV=production PORT=4000
+WORKDIR /app
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates ghostscript poppler-utils tesseract-ocr python3 python3-venv libvips42 fonts-dejavu-core \
+ && python3 -m venv /opt/venv \
+ && /opt/venv/bin/pip install --no-cache-dir --upgrade pip pypdf \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/opt/venv/bin:$PATH"
+COPY --from=dependencies /app/backend/node_modules ./backend/node_modules
+COPY backend ./backend
+COPY frontend ./frontend
+RUN mkdir -p /app/data /app/frontend/uploads/ads \
+ && chown -R node:node /app
+WORKDIR /app/backend
+USER node
+EXPOSE 4000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=45s --retries=3 \
+ CMD node -e "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+CMD ["node","src/server.js"]
