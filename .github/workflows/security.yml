@@ -10,7 +10,51 @@ permissions:
   contents: read
 
 jobs:
+  dependency-refresh:
+    name: Refresh and persist patched dependency lockfile
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Resolve current patched dependency versions
+        run: npm update --package-lock-only --ignore-scripts --no-audit
+      - name: Commit refreshed lockfile to this pull request
+        working-directory: .
+        run: |
+          if ! git diff --quiet -- backend/package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add backend/package-lock.json
+            git commit -m "chore: refresh patched dependency lockfile"
+            git push origin HEAD:${{ github.head_ref }}
+          else
+            echo "Dependency lockfile is already current."
+          fi
+      - name: Install exact refreshed dependencies
+        run: npm ci
+      - name: Validate refreshed dependencies
+        run: |
+          npm run check
+          npm test
+
   validate:
+    needs: [dependency-refresh]
+    if: always() && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
     name: Product validation, tests and dependency audit
     runs-on: ubuntu-latest
     defaults:
@@ -19,6 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -46,6 +91,8 @@ jobs:
 
   container-security:
     name: Docker build and Trivy filesystem/image scans
+    needs: [dependency-refresh]
+    if: always() && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -77,6 +124,8 @@ jobs:
 
   kubernetes-security:
     name: Trivy Kubernetes manifest scan
+    needs: [dependency-refresh]
+    if: always() && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     permissions:
       contents: read
