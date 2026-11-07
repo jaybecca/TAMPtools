@@ -27,6 +27,13 @@ spec:
       labels:
         app: postgres
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        fsGroup: 70
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: postgres
           image: postgres:17-alpine
@@ -49,9 +56,18 @@ spec:
                 secretKeyRef:
                   name: tamptools-runtime
                   key: POSTGRES_PASSWORD
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
+            - name: postgres-run
+              mountPath: /var/run/postgresql
+            - name: tmp
+              mountPath: /tmp
           readinessProbe:
             exec:
               command: ["sh", "-c", "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""]
