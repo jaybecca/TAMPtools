@@ -53,6 +53,8 @@ spec:
               subPath: ads
             - name: tmp
               mountPath: /tmp
+            - name: node-cache
+              mountPath: /home/node/.cache
           readinessProbe:
             httpGet:
               path: /api/health
@@ -78,7 +80,7 @@ spec:
               memory: 2Gi
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop: ["ALL"]
       volumes:
@@ -88,6 +90,9 @@ spec:
         - name: tmp
           emptyDir:
             sizeLimit: 1Gi
+        - name: node-cache
+          emptyDir:
+            sizeLimit: 512Mi
 ---
 apiVersion: v1
 kind: Service
@@ -152,7 +157,7 @@ spec:
               memory: 1Gi
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop: ["ALL"]
       volumes:
