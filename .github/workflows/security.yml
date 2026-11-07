@@ -10,22 +10,280 @@ permissions:
   contents: read
 
 jobs:
-  security-build:
+  dependency-refresh:
+    name: Verify patched dependencies and backend tests
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Refresh root dependency lockfile
+        working-directory: .
+        run: npm update --package-lock-only --ignore-scripts --no-audit
+      - name: Commit refreshed root lockfile
+        working-directory: .
+        run: |
+          if ! git diff --quiet -- package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore: refresh root dependency lockfile"
+            git push origin HEAD:${{ github.head_ref }}
+          else
+            echo "Root dependency lockfile is already current."
+          fi
+      - name: Install exact refreshed dependencies
+        run: npm ci
+      - name: Install PDF system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils ghostscript tesseract-ocr python3-pip
+          python3 -m pip install --break-system-packages pypdf
+      - name: Validate refreshed dependencies
+        run: |
+          npm run check
+          npm test
+
+  validate:
+    needs: [dependency-refresh]
+    if: always() && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
+    name: Product validation, tests and dependency audit
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: backend/package-lock.json
-      - run: npm install
-      - run: npm audit --audit-level=high
-      - run: node --check src/server.js
-      - name: Secret scan
-        uses: gitleaks/gitleaks-action@v2
+      - run: npm ci
+      - name: Run product validation
+        run: npm run check
+      - name: Install PDF system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils ghostscript tesseract-ocr python3-pip
+          python3 -m pip install --break-system-packages pypdf
+      - name: Run backend test suite
+        run: npm test
+      - name: Check server syntax
+        run: node --check src/server.js
+      - name: Install Gitleaks and scan repository history
+        run: |
+          curl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz | tar -xz -C /tmp
+          /tmp/gitleaks detect --source .. --log-opts="--all --no-merges" --redact --exit-code=2 --report-format=sarif --report-path=../gitleaks.sarif
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
+
+  container-security:
+    name: Docker build and Trivy filesystem/image scans
+    needs: [dependency-refresh]
+    if: always() && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Build production container
+        run: docker build --pull --tag tamptools:${{ github.sha }} .
+      - name: Trivy filesystem vulnerability and secret scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: "false"
+          exit-code: "1"
+          format: table
+      - name: Trivy container image scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: image
+          image-ref: tamptools:${{ github.sha }}
+          scanners: vuln,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: "false"
+          exit-code: "1"
+          format: table
+
+  kubernetes-security:
+    name: Trivy Kubernetes manifest scan
+    needs: [dependency-refresh]
+    if: always() && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Scan Kubernetes configuration
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: config
+          scan-ref: k8s/
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          format: table
+
+  minikube-smoke:
+    name: Minikube deployment and service smoke test
+    runs-on: ubuntu-latest
+    needs: [dependency-refresh, kubernetes-security]
+    if: always() && needs.kubernetes-security.result == 'success' && (needs.dependency-refresh.result == 'success' || github.event_name != 'pull_request')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Start Minikube
+        uses: medyagh/setup-minikube@e9e035a86bbc3caea26a450bd4dbf9d0c453682e # v0.0.21
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and load application image
+        run: |
+          docker build --pull -t tamptools:ci .
+          minikube image load tamptools:ci
+      - name: Create namespace and CI-only runtime secret
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl -n tamptools create secret generic tamptools-runtime \
+            --from-literal=POSTGRES_DB=tamptools \
+            --from-literal=POSTGRES_USER=tamptools \
+            --from-literal=POSTGRES_PASSWORD=ci-only-password \
+            --from-literal=DATABASE_URL=postgresql://tamptools:ci-only-password@postgres:5432/tamptools \
+            --from-literal=APP_BASE_URL=https://tamptools.invalid \
+            --from-literal=PUBLIC_APP_URL=https://tamptools.invalid \
+            --from-literal=FRONTEND_ORIGIN=https://tamptools.invalid \
+            --from-literal=FRONTEND_ORIGINS=https://tamptools.invalid
+          kubectl -n tamptools create secret generic tamptools-monitoring \
+            --from-literal=GRAFANA_ADMIN_PASSWORD=ci-only-password
+      - name: Deploy PostgreSQL, Redis, API, worker and monitoring
+        run: |
+          kubectl apply -f k8s/
+          if ! kubectl -n tamptools rollout status statefulset/postgres --timeout=240s; then
+            echo "PostgreSQL pod diagnostics:"
+            kubectl -n tamptools get pods,pvc -o wide
+            kubectl -n tamptools describe pod -l app=postgres
+            kubectl -n tamptools logs statefulset/postgres --all-containers=true --tail=120 || true
+            exit 1
+          fi
+          if ! kubectl -n tamptools rollout status deployment/redis --timeout=180s; then
+            echo "Redis pod diagnostics:"
+            kubectl -n tamptools get pods -l app=redis -o wide
+            kubectl -n tamptools describe pod -l app=redis
+            kubectl -n tamptools logs deployment/redis --all-containers=true --tail=120 || true
+            kubectl -n tamptools get events --sort-by=.lastTimestamp | tail -40
+            exit 1
+          fi
+          kubectl -n tamptools rollout status deployment/tamptools --timeout=300s
+          kubectl -n tamptools rollout status deployment/tamptools-worker --timeout=180s
+          kubectl -n tamptools rollout status deployment/blackbox-exporter --timeout=180s
+          kubectl -n tamptools rollout status deployment/prometheus --timeout=240s
+          kubectl -n tamptools rollout status deployment/grafana --timeout=240s
+      - name: Smoke test HTTP health endpoint
+        run: |
+          kubectl -n tamptools port-forward service/tamptools 4000:80 >/tmp/tamptools-port-forward.log 2>&1 &
+          echo $! >/tmp/tamptools-port-forward.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4000/api/health; then
+              echo
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/tamptools-port-forward.log
+          kubectl -n tamptools get pods -o wide
+          kubectl -n tamptools logs deployment/tamptools --all-containers=true --tail=100
+          exit 1
+      - name: Smoke test Prometheus and Grafana
+        run: |
+          kubectl -n tamptools port-forward service/prometheus 9090:9090 >/tmp/prometheus-port-forward.log 2>&1 &
+          PROMETHEUS_PID=$!
+          kubectl -n tamptools port-forward service/grafana 3000:3000 >/tmp/grafana-port-forward.log 2>&1 &
+          GRAFANA_PID=$!
+          trap 'kill "$PROMETHEUS_PID" "$GRAFANA_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:9090/-/ready >/dev/null \
+              && curl --fail --silent http://127.0.0.1:3000/api/health >/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:9090/-/ready
+          curl --fail --silent http://127.0.0.1:3000/api/health
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent -G --data-urlencode 'query=probe_success{job="tamptools-api-health"}' \
+              http://127.0.0.1:9090/api/v1/query | jq -e '.data.result[0].value[1] == "1"' >/dev/null; then
+              echo "Prometheus successfully probed the TAMPtools API health endpoint."
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/prometheus-port-forward.log /tmp/grafana-port-forward.log
+          echo "Prometheus did not report a successful TAMPtools API health probe."
+          exit 1
+
+  sonarqube:
+    name: SonarCloud analysis and quality gate
+    runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
+      SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Install backend test dependencies
+        run: npm ci --prefix backend
+      - name: Install document-processing test tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils ghostscript tesseract-ocr python3-pip
+          python3 -m pip install --break-system-packages pypdf
+      - name: Generate LCOV coverage for entitlement logic
+        run: npx --yes c8@10.1.3 --all --include=backend/src/entitlements.js --reporter=lcov --reporter=text --reports-dir=backend/coverage npm --prefix backend test
+      - name: Verify LCOV report exists
+        run: test -s backend/coverage/lcov.info
+      - name: Run SonarCloud analysis and wait for quality gate
+        if: env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != '' && env.SONAR_ORGANIZATION != ''
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+            -Dsonar.qualitygate.wait=true
+      - name: Explain skipped SonarCloud scan
+        if: env.SONAR_TOKEN == '' || env.SONAR_PROJECT_KEY == '' || env.SONAR_ORGANIZATION == ''
+        run: echo "SonarCloud scan skipped. Configure the SONAR_TOKEN secret and SONAR_PROJECT_KEY and SONAR_ORGANIZATION repository variables."

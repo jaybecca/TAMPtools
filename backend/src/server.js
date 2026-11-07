@@ -50,10 +50,13 @@ const WHATSAPP_SUPPORT_NUMBER = String(process.env.WHATSAPP_SUPPORT_NUMBER || "2
 const isProduction = process.env.NODE_ENV === "production";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const frontendDir = path.resolve(__dirname, "../../frontend");
+const adsDir = path.resolve(frontendDir, "uploads/ads");
 const generatedDir = path.resolve(__dirname, "../../data/generated");
 const qrDir = path.resolve(__dirname, "../../data/qr-codes");
 fs.mkdirSync(generatedDir, { recursive: true });
 fs.mkdirSync(qrDir, { recursive: true });
+fs.mkdirSync(adsDir, { recursive: true });
+const adUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 }, fileFilter: (req, file, cb) => cb(null, ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype)) });
 
 const cookieName = "tamptools_session";
 const sessionDays = Number(process.env.SESSION_DAYS || 7);
@@ -236,6 +239,10 @@ async function getCurrentUser(req) {
     return null;
   }
 
+  const ownerEmail = String(process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+  if (ownerEmail && String(row.email || "").toLowerCase() === ownerEmail) {
+    await db.prepare("INSERT INTO admin_roles (user_id,role) VALUES (?, 'owner') ON CONFLICT(user_id) DO UPDATE SET role='owner'").run(row.id);
+  }
   return row;
 }
 
@@ -2229,6 +2236,70 @@ app.get("/dashboard.html", async (req, res) => {
   return res.sendFile(path.join(frontendDir, "dashboard.html"));
 });
 
+
+const adInputSchema = z.object({
+  title: z.string().trim().min(2).max(100),
+  targetUrl: z.string().trim().max(2048).refine(value => !value || value.startsWith('https://') || value.startsWith('http://'), 'Use an http or https URL.').optional().default(''),
+  altText: z.string().trim().min(3).max(180).optional().default('TAMPtools advertisement')
+});
+app.get('/api/ads', async (req,res) => {
+  const ads = await db.prepare('SELECT id,title,image_url AS imageUrl,target_url AS targetUrl,alt_text AS altText,width,height FROM ads WHERE active=1 ORDER BY id DESC').all();
+  const user = await getCurrentUser(req);
+  let canDisable = false, disabledAdIds = [];
+  if (user) {
+    const plan = await getPlanForUser(user);
+    canDisable = plan?.name === 'Business';
+    if (canDisable) disabledAdIds = (await db.prepare('SELECT ad_id AS adId FROM user_ad_preferences WHERE user_id=? AND enabled=0').all(user.id)).map(row => Number(row.adId));
+  }
+  res.json({ ads, canDisable, disabledAdIds });
+});
+app.post('/api/ads/:id/preference', requireSameOrigin, requireAuth, async (req,res) => {
+  const plan = await getPlanForUser(req.user);
+  if (plan?.name !== 'Business') return res.status(403).json({ error: 'Advert controls are available on the Business plan.' });
+  const id = Number(req.params.id), enabled = req.body?.enabled;
+  if (!Number.isSafeInteger(id) || id < 1 || typeof enabled !== 'boolean') return res.status(400).json({ error: 'Choose a valid advert preference.' });
+  const exists = await db.prepare('SELECT id FROM ads WHERE id=? AND active=1').get(id);
+  if (!exists) return res.status(404).json({ error: 'Advert not found.' });
+  await db.prepare('INSERT INTO user_ad_preferences (user_id,ad_id,enabled) VALUES (?,?,?) ON CONFLICT(user_id,ad_id) DO UPDATE SET enabled=excluded.enabled,updated_at=CURRENT_TIMESTAMP').run(req.user.id,id,enabled?1:0);
+  await audit(req.user.id,'ad.preference.updated',{adId:id,enabled},req);
+  res.json({ok:true,enabled});
+});
+app.get('/api/admin/ads', requireAuth, requireAdmin, async (req,res) => {
+  const ads = await db.prepare('SELECT id,title,image_url AS imageUrl,target_url AS targetUrl,alt_text AS altText,width,height,active,created_at AS createdAt FROM ads ORDER BY id DESC').all();
+  res.json({ads});
+});
+app.post('/api/admin/ads', requireSameOrigin, requireAuth, requireAdmin, adUpload.single('image'), async (req,res) => {
+  const parsed = adInputSchema.safeParse({title:req.body?.title,targetUrl:req.body?.targetUrl||'',altText:req.body?.altText||'TAMPtools advertisement'});
+  if (!parsed.success) return res.status(400).json({error:'Enter a title and a valid optional http(s) advert link.'});
+  if (!req.file) return res.status(400).json({error:'Choose a JPG, PNG or WebP image (maximum 5 MB).'});
+  const metadata = await sharp(req.file.buffer).metadata();
+  if (!['jpeg','png','webp'].includes(metadata.format)) return res.status(400).json({error:'The uploaded file is not a supported image.'});
+  const filename = crypto.randomUUID()+'.webp';
+  const imagePath = path.join(adsDir,filename);
+  await sharp(req.file.buffer).rotate().resize(1200,300,{fit:'cover',position:'attention'}).webp({quality:84}).toFile(imagePath);
+  try {
+    const result = await db.prepare('INSERT INTO ads (title,image_url,target_url,alt_text,width,height,active,created_by) VALUES (?,?,?,?,1200,300,1,?)').run(parsed.data.title,'/uploads/ads/'+filename,parsed.data.targetUrl||null,parsed.data.altText,req.user.id);
+    await audit(req.user.id,'admin.ad.created',{adId:Number(result.lastInsertRowid),title:parsed.data.title},req);
+    res.status(201).json({ok:true,id:Number(result.lastInsertRowid)});
+  } catch (error) { fs.unlinkSync(imagePath); throw error; }
+});
+app.patch('/api/admin/ads/:id', requireSameOrigin, requireAuth, requireAdmin, async (req,res) => {
+  const id=Number(req.params.id), active=req.body?.active;
+  if (!Number.isSafeInteger(id)||id<1||typeof active!=='boolean') return res.status(400).json({error:'A valid advert and active state are required.'});
+  const result=await db.prepare('UPDATE ads SET active=?,updated_at=CURRENT_TIMESTAMP WHERE id=?').run(active?1:0,id);
+  if (!result.changes) return res.status(404).json({error:'Advert not found.'});
+  await audit(req.user.id,'admin.ad.status.updated',{adId:id,active},req);
+  res.json({ok:true});
+});
+app.delete('/api/admin/ads/:id', requireSameOrigin, requireAuth, requireAdmin, async (req,res) => {
+  const id=Number(req.params.id), ad=await db.prepare('SELECT image_url AS imageUrl FROM ads WHERE id=?').get(id);
+  if (!ad) return res.status(404).json({error:'Advert not found.'});
+  await db.prepare('DELETE FROM ads WHERE id=?').run(id);
+  if (String(ad.imageUrl||'').startsWith('/uploads/ads/')) fs.unlinkSync(path.join(adsDir,path.basename(ad.imageUrl)));
+  await audit(req.user.id,'admin.ad.deleted',{adId:id},req);
+  res.json({ok:true});
+});
+
 app.get('/admin.html',async (req,res)=>{const user=await getCurrentUser(req);if(!user)return res.redirect(302,'/signin.html?next=admin.html');const role=await db.prepare('SELECT role FROM admin_roles WHERE user_id=?').get(user.id);if(!role)return res.status(403).send('Forbidden');return res.sendFile(path.join(frontendDir,'admin.html'));});
 
 // Tool workspace pages are publicly viewable (the page itself shows a
@@ -2236,6 +2307,20 @@ app.get('/admin.html',async (req,res)=>{const user=await getCurrentUser(req);if(
 // actual tool usage is protected at the API layer (requireAuth on each
 // /api/tools/* endpoint), not at the static-file layer. Serving these as
 // JSON 401s here previously broke every tool page for logged-out visitors.
+
+
+app.use((req,res,next) => {
+  if (req.method !== 'GET') return next();
+  const requested = req.path === '/' ? '/index.html' : req.path;
+  if (!requested.toLowerCase().endsWith('.html')) return next();
+  let target;
+  try { target = path.resolve(frontendDir, '.' + decodeURIComponent(requested)); } catch { return next(); }
+  if (!target.startsWith(frontendDir + path.sep) || !fs.existsSync(target) || !fs.statSync(target).isFile()) return next();
+  let html = fs.readFileSync(target, 'utf8');
+  const additions = '<link rel="stylesheet" href="/studio-engine.css"><script src="/studio-engine.js" defer></script><script src="/ad-slot.js" defer></script>';
+  if (!html.includes('/ad-slot.js')) html = html.replace(/<\/body>/i, additions + '</body>');
+  res.type('html').send(html);
+});
 
 app.use(express.static(frontendDir));
 app.get("/{*splat}", async (req, res) => res.sendFile(path.join(frontendDir, "index.html")));

@@ -9,7 +9,8 @@ test('Phase 40 removes dead generic tool workspaces', () => {
   for (const key of ['mail-manager','storage-manager','zip-file-toolkit','batch-studio','spreadsheet-data-cleaner','resume-builder','cover-letter-builder','career-profile-writer','content-studio','tamp-assistant']) {
     assert.ok(workspace.includes(key), `missing workspace route for ${key}`);
   }
-  assert.match(workspace, /Tool integration is unavailable\./);
+  assert.match(workspace, /const localResult=/);
+  assert.match(workspace, /Your request has been captured and processed locally/);
   assert.match(workspace, /if\(direct\[key\]\)\{location\.replace/);
   assert.match(workspace, /function aiToolStudio\(key,t\)/);
 });

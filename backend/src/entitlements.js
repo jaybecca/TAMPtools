@@ -6,6 +6,13 @@ export function trialActive(user) {
 
 export async function getPlanForUser(user) {
   if (typeof user === 'number' || typeof user === 'string') user = await db.prepare('SELECT id,plan,trial_ends_at AS trialEndsAt FROM users WHERE id=?').get(Number(user));
+  const ownerRole = user?.id ? await db.prepare('SELECT role FROM admin_roles WHERE user_id=?').get(user.id) : null;
+  if (ownerRole?.role === 'owner') {
+    const ownerPlan = await db.prepare("SELECT id,name,usd,gbp,ngn,prices_json AS pricesJson,monthly_uses AS monthlyUses,features_json AS featuresJson,scheduling_days AS schedulingDays,batch_posts AS batchPosts FROM plans WHERE name='Business' AND active=1").get();
+    const baseFeatures = JSON.parse(ownerPlan?.featuresJson || '{}');
+    const features = Object.fromEntries(Object.entries({ ...TRIAL_LIMITS, ...baseFeatures }).map(([key, value]) => [key, typeof value === 'number' ? Number.MAX_SAFE_INTEGER : value === false ? true : value]));
+    return { ...(ownerPlan || {}), name: 'Owner access', trial: false, monthlyUses: null, features };
+  }
   const activeSub = user?.id ? await db.prepare("SELECT p.id,p.name,p.usd,p.gbp,p.ngn,p.prices_json AS pricesJson,p.monthly_uses AS monthlyUses,p.features_json AS featuresJson,p.scheduling_days AS schedulingDays,p.batch_posts AS batchPosts FROM subscriptions s JOIN plans p ON p.id=s.plan_id WHERE s.user_id=? AND s.status IN ('active','trialing') AND p.active=1 ORDER BY s.id DESC LIMIT 1").get(user.id) : null;
   if (activeSub) return { ...activeSub, trial:false, prices:JSON.parse(activeSub.pricesJson||'{}'), features:JSON.parse(activeSub.featuresJson||'{}') };
   if (trialActive(user)) {
