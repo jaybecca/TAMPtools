@@ -35,6 +35,7 @@ services:
       NODE_ENV: development
       PORT: "4000"
       DB_PROVIDER: postgres
+      DB_SSL: "false"
       DATABASE_URL: postgresql://tamptools:local-only-change-me@postgres:5432/tamptools
       REDIS_URL: redis://redis:6379
       FRONTEND_ORIGIN: http://localhost:4000
