@@ -121,7 +121,13 @@ jobs:
       - name: Deploy PostgreSQL, Redis, API and worker
         run: |
           kubectl apply -f k8s/
-          kubectl -n tamptools rollout status statefulset/postgres --timeout=240s
+          if ! kubectl -n tamptools rollout status statefulset/postgres --timeout=240s; then
+            echo "PostgreSQL pod diagnostics:"
+            kubectl -n tamptools get pods,pvc -o wide
+            kubectl -n tamptools describe pod -l app=postgres
+            kubectl -n tamptools logs statefulset/postgres --all-containers=true --tail=120 || true
+            exit 1
+          fi
           kubectl -n tamptools rollout status deployment/redis --timeout=180s
           kubectl -n tamptools rollout status deployment/tamptools --timeout=300s
           kubectl -n tamptools rollout status deployment/tamptools-worker --timeout=180s
