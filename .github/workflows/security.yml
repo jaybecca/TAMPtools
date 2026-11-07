@@ -188,7 +188,14 @@ jobs:
             kubectl -n tamptools logs statefulset/postgres --all-containers=true --tail=120 || true
             exit 1
           fi
-          kubectl -n tamptools rollout status deployment/redis --timeout=180s
+          if ! kubectl -n tamptools rollout status deployment/redis --timeout=180s; then
+            echo "Redis pod diagnostics:"
+            kubectl -n tamptools get pods -l app=redis -o wide
+            kubectl -n tamptools describe pod -l app=redis
+            kubectl -n tamptools logs deployment/redis --all-containers=true --tail=120 || true
+            kubectl -n tamptools get events --sort-by=.lastTimestamp | tail -40
+            exit 1
+          fi
           kubectl -n tamptools rollout status deployment/tamptools --timeout=300s
           kubectl -n tamptools rollout status deployment/tamptools-worker --timeout=180s
       - name: Smoke test HTTP health endpoint
@@ -208,25 +215,27 @@ jobs:
           exit 1
 
   sonarqube:
-    name: SonarQube quality gate
+    name: SonarCloud analysis and quality gate
     runs-on: ubuntu-latest
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
+      SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Run SonarQube analysis and wait for quality gate
-        if: env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != ''
+      - name: Run SonarCloud analysis and wait for quality gate
+        if: env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != '' && env.SONAR_ORGANIZATION != ''
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+          SONAR_HOST_URL: https://sonarcloud.io
         with:
           args: >
             -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
             -Dsonar.qualitygate.wait=true
-      - name: Explain skipped SonarQube scan
-        if: env.SONAR_TOKEN == '' || env.SONAR_PROJECT_KEY == ''
-        run: echo "SonarQube scan skipped. Configure SONAR_TOKEN and SONAR_PROJECT_KEY; add SONAR_HOST_URL for self-hosted SonarQube Server."
+      - name: Explain skipped SonarCloud scan
+        if: env.SONAR_TOKEN == '' || env.SONAR_PROJECT_KEY == '' || env.SONAR_ORGANIZATION == ''
+        run: echo "SonarCloud scan skipped. Configure the SONAR_TOKEN secret and SONAR_PROJECT_KEY and SONAR_ORGANIZATION repository variables."
