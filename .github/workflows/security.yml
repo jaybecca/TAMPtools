@@ -218,6 +218,33 @@ jobs:
           kubectl -n tamptools get pods -o wide
           kubectl -n tamptools logs deployment/tamptools --all-containers=true --tail=100
           exit 1
+      - name: Smoke test Prometheus and Grafana
+        run: |
+          kubectl -n tamptools port-forward service/prometheus 9090:9090 >/tmp/prometheus-port-forward.log 2>&1 &
+          PROMETHEUS_PID=$!
+          kubectl -n tamptools port-forward service/grafana 3000:3000 >/tmp/grafana-port-forward.log 2>&1 &
+          GRAFANA_PID=$!
+          trap 'kill "$PROMETHEUS_PID" "$GRAFANA_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:9090/-/ready >/dev/null \
+              && curl --fail --silent http://127.0.0.1:3000/api/health >/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:9090/-/ready
+          curl --fail --silent http://127.0.0.1:3000/api/health
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent -G --data-urlencode 'query=probe_success{job="tamptools-api-health"}' \
+              http://127.0.0.1:9090/api/v1/query | jq -e '.data.result[0].value[1] == "1"' >/dev/null; then
+              echo "Prometheus successfully probed the TAMPtools API health endpoint."
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/prometheus-port-forward.log /tmp/grafana-port-forward.log
+          echo "Prometheus did not report a successful TAMPtools API health probe."
+          exit 1
 
   sonarqube:
     name: SonarCloud analysis and quality gate
