@@ -1,21 +1,33 @@
-FROM node:22-trixie-slim AS dependencies
+FROM node:22.23.4-alpine3.23 AS dependencies
 WORKDIR /app/backend
+
+# Compile any native Node modules against the same musl-based runtime.
+RUN apk add --no-cache --virtual .build-deps python3 make g++
 COPY backend/package.json backend/package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-FROM node:22-trixie-slim AS runtime
+FROM node:22.23.4-alpine3.23 AS runtime
 ENV NODE_ENV=production PORT=4000
 WORKDIR /app
 
-RUN apt-get update \
- && apt-get upgrade -y \
- && apt-get install -y --no-install-recommends ca-certificates ghostscript poppler-utils tesseract-ocr python3 python3-venv fonts-dejavu-core \
- && (apt-get purge -y python3-setuptools || true) \
+# Keep the runtime on a minimal, patched Alpine base and install only the
+# document-processing tools the application actually invokes.
+RUN apk upgrade --no-cache \
+ && apk add --no-cache \
+      ca-certificates \
+      ghostscript \
+      poppler-utils \
+      tesseract-ocr \
+      tesseract-ocr-data-eng \
+      python3 \
+      py3-pip \
+      ttf-dejavu \
+      libstdc++ \
  && python3 -m venv /opt/venv \
- && /opt/venv/bin/pip install --no-cache-dir --upgrade pip 'setuptools>=78.1.1' pypdf \
- && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ && /opt/venv/bin/pip install --no-cache-dir --upgrade pip setuptools pypdf \
+ && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+      /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
+      /opt/yarn-v1.22.22
 
 ENV PATH="/opt/venv/bin:$PATH"
 COPY --from=dependencies /app/backend/node_modules ./backend/node_modules
