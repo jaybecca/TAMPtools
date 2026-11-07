@@ -11,7 +11,8 @@ ENV NODE_ENV=production PORT=4000
 WORKDIR /app
 
 # Keep the runtime on a minimal, patched Alpine base and install only the
-# document-processing tools the application actually invokes.
+# document-processing tools the application actually invokes. The runtime uses an
+# isolated venv, so remove Alpine's older system pip/setuptools copies afterward.
 RUN apk upgrade --no-cache \
  && apk add --no-cache \
       ca-certificates \
@@ -25,7 +26,6 @@ RUN apk upgrade --no-cache \
       libstdc++ \
  && python3 -m venv /opt/venv \
  && /opt/venv/bin/pip install --no-cache-dir --upgrade pip "setuptools>=78.1.1" pypdf \
- # The runtime uses the isolated venv; remove Alpine's older system pip/setuptools copies.
  && apk del py3-pip py3-setuptools \
  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
       /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
