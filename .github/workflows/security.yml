@@ -178,7 +178,9 @@ jobs:
             --from-literal=PUBLIC_APP_URL=https://tamptools.invalid \
             --from-literal=FRONTEND_ORIGIN=https://tamptools.invalid \
             --from-literal=FRONTEND_ORIGINS=https://tamptools.invalid
-      - name: Deploy PostgreSQL, Redis, API and worker
+          kubectl -n tamptools create secret generic tamptools-monitoring \
+            --from-literal=GRAFANA_ADMIN_PASSWORD=ci-only-password
+      - name: Deploy PostgreSQL, Redis, API, worker and monitoring
         run: |
           kubectl apply -f k8s/
           if ! kubectl -n tamptools rollout status statefulset/postgres --timeout=240s; then
@@ -198,6 +200,9 @@ jobs:
           fi
           kubectl -n tamptools rollout status deployment/tamptools --timeout=300s
           kubectl -n tamptools rollout status deployment/tamptools-worker --timeout=180s
+          kubectl -n tamptools rollout status deployment/blackbox-exporter --timeout=180s
+          kubectl -n tamptools rollout status deployment/prometheus --timeout=240s
+          kubectl -n tamptools rollout status deployment/grafana --timeout=240s
       - name: Smoke test HTTP health endpoint
         run: |
           kubectl -n tamptools port-forward service/tamptools 4000:80 >/tmp/tamptools-port-forward.log 2>&1 &
