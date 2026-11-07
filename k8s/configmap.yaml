@@ -7,6 +7,7 @@ data:
   NODE_ENV: "production"
   PORT: "4000"
   DB_PROVIDER: "postgres"
+  DB_SSL: "false"
   REDIS_URL: "redis://redis:6379"
   STORAGE_PROVIDER: "local"
   TAMPTOOLS_STORAGE_DIR: "/app/data/uploads"
