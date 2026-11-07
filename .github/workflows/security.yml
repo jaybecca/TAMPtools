@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build production container
-        run: docker build --pull --tag tamptools:\${{ github.sha }} .
+        run: docker build --pull --tag tamptools:${{ github.sha }} .
       - name: Trivy filesystem vulnerability and secret scan
         uses: aquasecurity/trivy-action@0.36.0
         with:
@@ -68,7 +68,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.36.0
         with:
           scan-type: image
-          image-ref: tamptools:\${{ github.sha }}
+          image-ref: tamptools:${{ github.sha }}
           scanners: vuln,secret
           severity: HIGH,CRITICAL
           ignore-unfixed: "false"
@@ -143,8 +143,8 @@ jobs:
     name: SonarQube quality gate
     runs-on: ubuntu-latest
     env:
-      SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }}
-      SONAR_PROJECT_KEY: \${{ vars.SONAR_PROJECT_KEY }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -153,11 +153,11 @@ jobs:
         if: env.SONAR_TOKEN != '' && env.SONAR_PROJECT_KEY != ''
         uses: SonarSource/sonarqube-scan-action@v6
         env:
-          SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: \${{ vars.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.projectKey=\${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
             -Dsonar.qualitygate.wait=true
       - name: Explain skipped SonarQube scan
         if: env.SONAR_TOKEN == '' || env.SONAR_PROJECT_KEY == ''
